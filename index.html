@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WebSocket Client</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="image-container">
+      <img id="bot-image" src="" alt="Bot Image" />
+    </div>
+
+    <script>
+      const ws = new WebSocket("ws://localhost:3000"); 
+
+ws.onopen = function() {
+  console.log("WebSocket connection established");
+};
+
+ws.onmessage = function(event) {
+  console.log("Message received from server:", event.data);
+  const imageUrl = event.data;
+
+  const imgElement = document.createElement("img");
+  imgElement.src = imageUrl;
+
+  const imageContainer = document.getElementById("image-container");
+  imageContainer.innerHTML = "";
+  imageContainer.appendChild(imgElement);
+};
+
+ws.onerror = function(error) {
+  console.error("WebSocket error:", error);
+};
+
+    </script>
+  </body>
+</html>

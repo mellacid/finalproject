@@ -23,26 +23,26 @@ client.on("message", (channel, tags, message, self) => {
   if (self) return; // Ignore own messages
 
   console.log(`[${channel}] ${tags["username"]}: ${message}`);
-  // Hier kannst du die Nachrichten verarbeiten und auf Befehle reagieren
-  // Überprüfe, ob die Nachricht einen Befehl enthält und sende ihn über die WebSocket-Verbindung
+
+  // process the messages and react to commands
   if (message.startsWith("!medizin")) {
-    sendCommandToOtherPage("medizin"); // Beispielbefehl, den du an die andere Seite senden möchtest
+    // example command: !medizin
+
+    sendCommandToOtherPage("medizin");
+
+    // client.say(channel, "/me medizin"); ==> This would send a message to the chat (not needed for the bot to work)
   }
 });
 
 client.connect().catch(console.error);
-
-// Funktion zum Senden des Befehls über die WebSocket-Verbindung
+// function to send commands to the other page (server.js)
 function sendCommandToOtherPage(command) {
-  // Hier kannst du die Logik zum Senden des Befehls implementieren
-  // Beispiel:
+  // here you can send commands to the other page via WebSocket
   const WebSocket = require("ws");
-  const ws = new WebSocket("ws://localhost:3000"); // Adresse der anderen Seite
+  const ws = new WebSocket("ws://localhost:3000"); // connect to webSocket server
 
   ws.on("open", function open() {
-    ws.send(String(command)); // Konvertiere die Nachricht in eine Zeichenkette, bevor sie gesendet wird
+    ws.send(String(command)); // convert command to string and send it (but doesn't work)
     ws.close();
   });
 }
-
-

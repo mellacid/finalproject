@@ -1,6 +1,7 @@
 import React, { useRef, useEffect } from "react";
 
 const GameCanvas = () => {
+  const gameRef = useRef(null);
   const canvasRef = useRef(null);
 
   useEffect(() => {
@@ -13,7 +14,7 @@ const GameCanvas = () => {
   }, []);
 
   return (
-    <div className="game-container">
+    <div ref={gameRef} className="game-container">
       <canvas
         ref={canvasRef}
         className="game-canvas"

@@ -2,7 +2,7 @@ import GameCanvas from "./Game/GameCanvas";
 
 function App() {
   return (
-    <div className="game-container">
+    <div>
       <GameCanvas />
     </div>
   );

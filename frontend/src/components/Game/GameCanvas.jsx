@@ -13,12 +13,14 @@ const GameCanvas = () => {
   }, []);
 
   return (
-    <canvas
-      ref={canvasRef}
-      className="game-canvas"
-      width="352"
-      height="198"
-    ></canvas>
+    <div className="game-container">
+      <canvas
+        ref={canvasRef}
+        className="game-canvas"
+        width="352"
+        height="198"
+      ></canvas>
+    </div>
   );
 };
 

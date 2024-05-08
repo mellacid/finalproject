@@ -1,9 +1,9 @@
-import GameCanvas from "./Game/GameCanvas";
+import Game from "./Game/Game.jsx";
 
 function App() {
   return (
     <div>
-      <GameCanvas />
+      <Game />
     </div>
   );
 }

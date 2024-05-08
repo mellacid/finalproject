@@ -1,4 +1,4 @@
-import { useState } from 'react'
+/*import { useState } from 'react'
 import reactLogo from '../assets/react.svg'
 import viteLogo from '/vite.svg'
 import '../styles/App.css'
@@ -36,4 +36,38 @@ function App() {
   )
 }
 
-export default App
+export default App*/
+
+//App.jsx
+
+
+
+import '../styles/App.css';
+
+function Intro() {
+  const handlePlayClick = () => {
+    window.location.href = '/game';
+  };
+
+  const handleOptionsClick = () => {
+    window.location.href = '/options';
+  };
+
+  return (
+    <div className="intro-container">
+      
+      <h1>TOPRAK</h1>
+      <h4>LOST PAWS</h4>
+      
+    
+      <div>
+        <button onClick={handlePlayClick}>Play</button>
+        <button onClick={handleOptionsClick}>Options</button>
+      </div>
+    </div>
+  );
+}
+
+export default Intro;
+
+

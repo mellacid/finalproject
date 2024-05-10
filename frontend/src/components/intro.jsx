@@ -63,7 +63,7 @@ export default Intro;*/
 
 
 import PropTypes from 'prop-types';
-import introImage from '../assets/toprak-intro.jpg';
+import introImage from '../assets/toprak-intro2.jpeg';
 
 
 
@@ -77,8 +77,8 @@ function IntroPage({ onStart, onOptions}) {
   return (
     <div className="intro-container" onKeyPress={handleKeyPress} tabIndex={0}>
      <img src={introImage} alt="" />
-      <h1>TOPRAK</h1>
-      <h4>LOST PAWS</h4>
+      {/*<h1>TOPRAK</h1>*/}
+      {/*<h4>LOST PAWS</h4>*/}
       <button onClick={onStart}>Play</button>
       <button onClick={onOptions}>Options</button>
       

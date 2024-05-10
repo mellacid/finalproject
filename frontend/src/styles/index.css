@@ -25,24 +25,26 @@ body {
   min-height: 100vh;
 }
 
-h1 {
-  font-size: 4em;
-  line-height: 1.1;
-  font-family: synthesis;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
+h1, h2, h4{
+  font-family: "Silkscreen", sans-serif;
+  font-weight: 400;
+  font-style: normal;
   
 }
+
+.intro-container img{
+  width: 90%;
+  height: 80%;
+  
+  border-radius: 5%;
+  top: 0;
+  left: 0;
+  z-index: -1;
+ 
+}
+
+
+
 button:hover {
   border-color: #646cff;
 }

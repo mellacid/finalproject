@@ -1,14 +1,7 @@
-import React, { useRef } from "react";
-import GameCanvas from "./GameCanvas.jsx";
+import React from "react";
 
 const Game = () => {
-  const gameRef = useRef(null);
-
-  return (
-    <div ref={gameRef} className="game-container">
-      <GameCanvas />
-    </div>
-  );
+  return <div></div>;
 };
 
 export default Game;

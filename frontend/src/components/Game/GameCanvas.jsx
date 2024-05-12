@@ -7,7 +7,7 @@ const GameCanvas = () => {
   const canvasRef = useRef(null);
   const [map, setMap] = useState({
     image: demoForestImage,
-    player: { image: playerImage, position: { x: 4, y: 0 } },
+    player: { image: playerImage, position: { x: 4, y: 5 } },
   });
   let ctx = null;
 

@@ -1,7 +1,9 @@
+import "../../styles/game.css";
+
 import React, { useState, useEffect } from "react";
-import Sprite from "./object-graphics/Sprite.jsx";
 
 import { SPRITE_SHEET_SRC } from "./helpers/consts.js";
+import RenderLevel from "./level-layout/RenderLevel.jsx";
 
 const Game = () => {
   const [spriteSheetImage, setSpriteSheetImage] = useState(null);
@@ -19,8 +21,7 @@ const Game = () => {
 
   return (
     <div>
-      <Sprite image={spriteSheetImage} frameCoord={"0x0"} />
-      <Sprite image={spriteSheetImage} frameCoord={"2x0"} />
+      <RenderLevel spriteSheetImage={spriteSheetImage} />
     </div>
   );
 };

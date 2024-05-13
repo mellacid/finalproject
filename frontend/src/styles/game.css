@@ -1,0 +1,37 @@
+*{
+  box-sizing: border-box ;
+}
+
+:root {
+  --game-viewport-width: 352px;
+  --game-viewport-height: 198px;
+  --game-cell-size: 16px;
+  --pixel-size: 1;
+}
+
+html, body {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  margin: 0
+}
+
+canvas {
+  image-rendering: -moz-crisp-edges;
+  image-rendering: -webkit-crisp-edges;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+@media(min-width: 352px){
+  :root{
+    --pixel-size: 1;
+  }
+}
+
+@media(min-width: 704px){
+  :root{
+    --pixel-size: 2;
+  }
+}

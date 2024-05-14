@@ -25,6 +25,26 @@ canvas {
   image-rendering: crisp-edges;
 }
 
+
+.fullScreenContainer {
+  align-items: center;
+  display: flex;
+  inset: 0;
+  justify-content: center;
+  position: absolute;
+}
+
+.gameScreen {
+  width: var(--game-viewport-width);
+  height: var(--game-viewport-height);
+  transform: scale(var(--pixel-size));
+
+  outline: 2px solid white;
+}
+
+
+
+
 @media(min-width: 352px){
   :root{
     --pixel-size: 1;

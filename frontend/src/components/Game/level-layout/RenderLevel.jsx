@@ -1,4 +1,6 @@
 import Sprite from "../object-graphics/Sprite.jsx";
+import Map from "../object-graphics/Map.jsx";
+import Hero from "../object-graphics/Hero.jsx";
 
 import React from "react";
 
@@ -6,9 +8,8 @@ const RenderLevel = ({ spriteSheetImage }) => {
   return (
     <div className="fullScreenContainer">
       <div className="gameScreen">
-        <Sprite image={spriteSheetImage} frameCoord={"0x0"} />
-        <Sprite image={spriteSheetImage} frameCoord={"2x0"} />
-        <Sprite image={spriteSheetImage} frameCoord={"0x2"} />
+        <Map />
+        <Hero />
       </div>
     </div>
   );

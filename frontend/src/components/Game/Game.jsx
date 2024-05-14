@@ -5,33 +5,71 @@ import React, { useState, useRef, useEffect } from "react";
 import forestMapImage from "../../assets/images/maps/map.png";
 import heroImage from "../../assets/images/sprites/dog.jpg";
 
+const animations = {
+  "idle-down": [[0, 0]],
+  "idle-up": [[0, 2]],
+  "idle-left": [[0, 3]],
+  "idle-right": [[0, 1]],
+  "walk-down": [
+    [1, 0],
+    [0, 0],
+    [3, 0],
+    [0, 0],
+  ],
+  "walk-up": [
+    [1, 2],
+    [0, 2],
+    [3, 2],
+    [0, 2],
+  ],
+  "walk-left": [
+    [1, 3],
+    [0, 3],
+    [3, 3],
+    [0, 3],
+  ],
+  "walk-right": [
+    [1, 1],
+    [0, 1],
+    [3, 1],
+    [0, 1],
+  ],
+};
+
 const Game = () => {
   const canvasRef = useRef(null);
-  const [key, setKey] = useState();
+  const [key, setKey] = useState("");
   const [map, setMap] = useState({
     imgSrc: forestMapImage,
   });
   const [hero, setHero] = useState({
     imgSrc: heroImage,
-    direction: "down",
+    animation: "idle-down",
     isWalking: false,
     position: { x: 9, y: 4.5 },
   });
 
-  const handleKeyDown = (e) => {
+  const directionInput = (e) => {
     if (e.key === "ArrowUp") {
       setKey("up");
     } else if (e.key === "ArrowDown") {
       setKey("down");
     } else if (e.key === "ArrowLeft") {
       setKey("left");
-    } else if (e.key === "ArrowRight") {
+    }
+    if (e.key === "ArrowRight") {
       setKey("right");
     }
   };
 
+  function walk() {
+    if (key !== "") {
+      setHero({ ...hero, animation: `idle-${key}` });
+    }
+  }
+
   useEffect(() => {
-    console.log("key: ", key);
+    walk();
 
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
@@ -41,7 +79,7 @@ const Game = () => {
 
     // draw hero
     drawHero(ctx);
-  }, [hero, key]);
+  }, [key]);
 
   function drawMap(ctx) {
     const mapDraw = new Image();
@@ -57,8 +95,8 @@ const Game = () => {
     heroDraw.onload = () => {
       ctx.drawImage(
         heroDraw,
-        0,
-        0,
+        animations[hero.animation][0][0] * 32,
+        animations[hero.animation][0][1] * 32,
         32,
         32,
         hero.position.x * 16 - 8,
@@ -69,7 +107,10 @@ const Game = () => {
     };
   }
 
-  window.addEventListener("keydown", handleKeyDown);
+  window.addEventListener("keydown", directionInput);
+  window.addEventListener("keyup", () => {
+    setKey("");
+  });
 
   return (
     <div className="game-container">

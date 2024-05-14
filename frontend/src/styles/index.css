@@ -65,3 +65,49 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+
+.slide1-container img{
+  width: 90%;
+  height: 80%;
+  
+  border-radius: 5%;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  
+}
+
+.slide2-container img{
+  width: 90%;
+  height: 80%;
+  
+  border-radius: 5%;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  
+}
+
+.slide3-container img{
+  width: 90%;
+  height: 80%;
+  
+  border-radius: 5%;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  
+}
+
+.slide4-container img{
+  width: 90%;
+  height: 80%;
+  
+  border-radius: 5%;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  
+}
+

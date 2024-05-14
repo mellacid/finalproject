@@ -1,11 +1,14 @@
 // Slide2.jsx
 
 
+import slide2Image from '../assets/toprak2.png'; 
+
+
 function Slide2() {
   return (
-    <div>
-      {/* Contenuto della seconda slide */}
-      <h1>Image 2</h1>
+    <div className='slide2-container'>
+      <img src={slide2Image} alt="Slide 2" />
+      
     </div>
   );
 }

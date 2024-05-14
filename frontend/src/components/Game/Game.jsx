@@ -44,7 +44,8 @@ const Game = () => {
   });
   const [hero, setHero] = useState({
     imgSrc: heroImage,
-    animation: "idle-down",
+    animation: "walk-left",
+    animationFrame: 0,
     isWalking: false,
     position: { x: 9, y: 4.5 },
   });
@@ -62,15 +63,7 @@ const Game = () => {
     }
   };
 
-  function walk() {
-    if (key !== "") {
-      setHero({ ...hero, animation: `idle-${key}` });
-    }
-  }
-
   useEffect(() => {
-    walk();
-
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
 
@@ -90,13 +83,19 @@ const Game = () => {
   }
 
   function drawHero(ctx) {
+    updateAnimation(hero);
+    walk();
+
+    const frameX = animations[hero.animation][hero.animationFrame][0];
+    const frameY = animations[hero.animation][hero.animationFrame][1];
+
     const heroDraw = new Image();
     heroDraw.src = hero.imgSrc;
     heroDraw.onload = () => {
       ctx.drawImage(
         heroDraw,
-        animations[hero.animation][0][0] * 32,
-        animations[hero.animation][0][1] * 32,
+        frameX * 32,
+        frameY * 32,
         32,
         32,
         hero.position.x * 16 - 8,
@@ -105,6 +104,38 @@ const Game = () => {
         32
       );
     };
+  }
+
+  function updateAnimation(who) {
+    const animationFrames = animations[who.animation];
+    const animationLength = animationFrames.length;
+    const currentFrame = who.animationFrame;
+
+    for (let i = 0; i < animationLength - 1; i++) {
+      if (currentFrame === animationLength - 1) {
+        who.animationFrame = 0;
+        return;
+      } else if (currentFrame === i) {
+        who.animationFrame = currentFrame + 1;
+        return;
+      }
+    }
+  }
+
+  function walk() {
+    if (key === "up") {
+      hero.animation = "walk-up";
+      hero.position.y -= 0.1;
+    } else if (key === "down") {
+      hero.animation = "walk-down";
+      hero.position.y += 0.1;
+    } else if (key === "left") {
+      hero.animation = "walk-left";
+      hero.position.x -= 0.1;
+    } else if (key === "right") {
+      hero.animation = "walk-right";
+      hero.position.x += 0.1;
+    }
   }
 
   window.addEventListener("keydown", directionInput);

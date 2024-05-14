@@ -1,27 +1,56 @@
 import "../../styles/game.css";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 
-import { SPRITE_SHEET_SRC } from "./helpers/consts.js";
-import RenderLevel from "./level-layout/RenderLevel.jsx";
+import forestMapImage from "../../assets/images/maps/map.png";
+import heroImage from "../../assets/images/sprites/dog.jpg";
 
 const Game = () => {
-  const [spriteSheetImage, setSpriteSheetImage] = useState(null);
-  useEffect(() => {
-    const image = new Image();
+  const canvasRef = useRef(null);
+  const [map, setMap] = useState({
+    imgSrc: forestMapImage,
+  });
+  const [hero, setHero] = useState({
+    imgSrc: heroImage,
+    position: { x: 10.5, y: 6 },
+  });
 
-    image.src = SPRITE_SHEET_SRC;
-    image.onload = () => {
-      setSpriteSheetImage(image);
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext("2d");
+
+    // draw map
+    const mapDraw = new Image();
+    mapDraw.src = map.imgSrc;
+    mapDraw.onload = () => {
+      ctx.drawImage(mapDraw, 0, 0);
+      drawHero(ctx);
     };
+
+    // draw hero
   }, []);
-  if (!spriteSheetImage) {
-    return null;
+
+  function drawHero(ctx) {
+    const heroDraw = new Image();
+    heroDraw.src = hero.imgSrc;
+    heroDraw.onload = () => {
+      ctx.drawImage(
+        heroDraw,
+        0,
+        0,
+        32,
+        32,
+        hero.position.x * 16,
+        hero.position.y * 16,
+        32,
+        32
+      );
+    };
   }
 
   return (
-    <div>
-      <RenderLevel spriteSheetImage={spriteSheetImage} />
+    <div className="game-container">
+      <canvas ref={canvasRef}></canvas>;
     </div>
   );
 };

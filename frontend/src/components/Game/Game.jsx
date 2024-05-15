@@ -2,6 +2,8 @@ import "../../styles/game.css";
 
 import React, { useState, useRef, useEffect } from "react";
 
+import { withGrid } from "./utils/utils.js";
+
 import forestMapImage from "../../assets/images/maps/map.png";
 import heroImage from "../../assets/images/sprites/dog.jpg";
 
@@ -98,8 +100,8 @@ const Game = () => {
         frameY * 32,
         32,
         32,
-        hero.position.x * 16 - 8,
-        hero.position.y * 16 - 16,
+        withGrid(hero.position.x) - 8,
+        withGrid(hero.position.y) - 16,
         32,
         32
       );

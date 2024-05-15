@@ -9,7 +9,7 @@ const SlideIndicator = ({ index, onDotClick }) => (
       <span
         key={i}
         className={`dot ${index === i ? 'active' : ''}`}
-        onClick={() => onDotClick(i)} // Aggiungi l'evento onClick qui
+        onClick={() => onDotClick(i)} 
       ></span>
     ))}
   </div>
@@ -17,7 +17,7 @@ const SlideIndicator = ({ index, onDotClick }) => (
 
 SlideIndicator.propTypes = {
   index: PropTypes.number.isRequired,
-  onDotClick: PropTypes.func.isRequired, // Aggiungi la prop onDotClick
+  onDotClick: PropTypes.func.isRequired, 
 };
 
 export default SlideIndicator;

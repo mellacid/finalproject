@@ -3,67 +3,17 @@ import "../../styles/game.css";
 import React, { useState, useRef, useEffect } from "react";
 
 import { withGrid } from "./utils/utils.js";
+import { animations, updateAnimation } from "./utils/animations.js";
 
-import forestMapImage from "../../assets/images/maps/map.png";
-import heroImage from "../../assets/images/sprites/dog.jpg";
-
-const animations = {
-  "idle-down": [[0, 0]],
-  "idle-up": [[0, 2]],
-  "idle-left": [[0, 3]],
-  "idle-right": [[0, 1]],
-  "walk-down": [
-    [1, 0],
-    [0, 0],
-    [3, 0],
-    [0, 0],
-  ],
-  "walk-up": [
-    [1, 2],
-    [0, 2],
-    [3, 2],
-    [0, 2],
-  ],
-  "walk-left": [
-    [1, 3],
-    [0, 3],
-    [3, 3],
-    [0, 3],
-  ],
-  "walk-right": [
-    [1, 1],
-    [0, 1],
-    [3, 1],
-    [0, 1],
-  ],
-};
+import demoForest from "./maps/demoForest.js";
 
 const Game = () => {
   const canvasRef = useRef(null);
   const [key, setKey] = useState("");
-  const [map, setMap] = useState({
-    imgSrc: forestMapImage,
-  });
-  const [hero, setHero] = useState({
-    imgSrc: heroImage,
-    animation: "walk-left",
-    animationFrame: 0,
-    isWalking: false,
-    position: { x: 9, y: 4.5 },
-  });
+  const animationRef = useRef(null);
 
-  const directionInput = (e) => {
-    if (e.key === "ArrowUp") {
-      setKey("up");
-    } else if (e.key === "ArrowDown") {
-      setKey("down");
-    } else if (e.key === "ArrowLeft") {
-      setKey("left");
-    }
-    if (e.key === "ArrowRight") {
-      setKey("right");
-    }
-  };
+  const [map, setMap] = useState(demoForest.map);
+  const [hero, setHero] = useState(demoForest.hero);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -85,6 +35,8 @@ const Game = () => {
   }
 
   function drawHero(ctx) {
+    if (!hero) return;
+
     updateAnimation(hero);
     walk();
 
@@ -108,22 +60,6 @@ const Game = () => {
     };
   }
 
-  function updateAnimation(who) {
-    const animationFrames = animations[who.animation];
-    const animationLength = animationFrames.length;
-    const currentFrame = who.animationFrame;
-
-    for (let i = 0; i < animationLength - 1; i++) {
-      if (currentFrame === animationLength - 1) {
-        who.animationFrame = 0;
-        return;
-      } else if (currentFrame === i) {
-        who.animationFrame = currentFrame + 1;
-        return;
-      }
-    }
-  }
-
   function walk() {
     if (key === "up") {
       hero.animation = "walk-up";
@@ -139,6 +75,19 @@ const Game = () => {
       hero.position.x += 0.1;
     }
   }
+
+  const directionInput = (e) => {
+    if (e.key === "ArrowUp") {
+      setKey("up");
+    } else if (e.key === "ArrowDown") {
+      setKey("down");
+    } else if (e.key === "ArrowLeft") {
+      setKey("left");
+    }
+    if (e.key === "ArrowRight") {
+      setKey("right");
+    }
+  };
 
   window.addEventListener("keydown", directionInput);
   window.addEventListener("keyup", () => {

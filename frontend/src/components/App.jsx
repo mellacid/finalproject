@@ -1,4 +1,4 @@
-import Game from "./Game/Game.jsx";
+import Game from "./game/Game.jsx";
 
 function App() {
   return (

@@ -44,6 +44,8 @@ const Game = () => {
   function drawHero(ctx, cameraPerson) {
     if (!hero) return;
 
+    console.log("hero.position:", hero.position);
+
     updateAnimation(hero);
     walk();
 
@@ -63,16 +65,16 @@ const Game = () => {
   function walk() {
     if (key === "up") {
       hero.animation = "walk-up";
-      hero.position.y -= 1;
+      hero.position.y -= 16;
     } else if (key === "down") {
       hero.animation = "walk-down";
-      hero.position.y += 1;
+      hero.position.y += 16;
     } else if (key === "left") {
       hero.animation = "walk-left";
-      hero.position.x -= 1;
+      hero.position.x -= 16;
     } else if (key === "right") {
       hero.animation = "walk-right";
-      hero.position.x += 1;
+      hero.position.x += 16;
     }
   }
 

@@ -1,3 +1,5 @@
+import { withGrid } from "../utils/utils.js";
+
 import forestMapImage from "../../../assets/images/maps/map.png";
 import heroImage from "../../../assets/images/sprites/dog.jpg";
 
@@ -8,10 +10,10 @@ const demoForest = {
 
   hero: {
     imgSrc: heroImage,
-    animation: "walk-left",
+    animation: "idle-down",
     animationFrame: 0,
     isWalking: false,
-    position: { x: 9, y: 4.5 },
+    position: { x: withGrid(9), y: withGrid(10) },
   },
 };
 

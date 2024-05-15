@@ -129,7 +129,7 @@ const Game = () => {
 
   return (
     <div className="game-container">
-      <canvas ref={canvasRef}></canvas>;
+      <canvas ref={canvasRef}></canvas>
     </div>
   );
 };

@@ -63,7 +63,7 @@ export default Intro;*/
 
 
 import PropTypes from 'prop-types';
-import introImage from '../assets/toprak-intro2.jpeg';
+import introImage from '../assets/lost-paws4.png';
 
 
 

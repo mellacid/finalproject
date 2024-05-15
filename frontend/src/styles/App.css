@@ -27,7 +27,7 @@
   
 }
 body {
-  background-image: url('../assets/4.jpeg');
+  background-image: url('../assets/background.jpeg');
   background-size: cover;
   background-repeat: no-repeat;
 
@@ -52,8 +52,8 @@ body {
 }
 
 button {
-  background-color: black;
-  color: #ffffff;
+  background-color: #E2AD79;
+  color: black;
   border: none;
   padding: 10px 20px;
   font-size: 16px;
@@ -82,7 +82,7 @@ h1 {
 
 
 button:hover {
-  background-color: darkgreen;
+  background-color: #F6FFD2;
 }
 
 

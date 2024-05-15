@@ -12,6 +12,7 @@ const Game = () => {
   const [key, setKey] = useState("");
 
   const [map, setMap] = useState(demoForest.map);
+  const [gameObjects, setGameObjects] = useState(demoForest.gameObjects);
   const [hero, setHero] = useState(demoForest.hero);
 
   useEffect(() => {
@@ -24,6 +25,9 @@ const Game = () => {
 
     // draw map
     drawMap(ctx, cameraPerson);
+
+    // draw game objects
+    drawGameObjects(ctx, cameraPerson);
 
     // draw hero
     drawHero(ctx, cameraPerson);
@@ -41,10 +45,37 @@ const Game = () => {
     };
   }
 
+  function drawGameObjects(ctx, cameraPerson) {
+    Object.values(gameObjects).forEach((object) => {
+      const frameX = animations[object.animation][object.animationFrame][0];
+      const frameY = animations[object.animation][object.animationFrame][1];
+
+      const x = object.position.x + withGrid(9) - cameraPerson.x;
+      const y = object.position.y + withGrid(4.5) - cameraPerson.y;
+
+      const objectDraw = new Image();
+      objectDraw.src = object.imgSrc;
+      objectDraw.onload = () => {
+        ctx.drawImage(
+          objectDraw,
+          frameX * 32,
+          frameY * 32,
+          32,
+          32,
+          x,
+          y,
+          32,
+          32
+        );
+      };
+    });
+  }
+
   function drawHero(ctx, cameraPerson) {
     if (!hero) return;
 
-    console.log("hero.position:", hero.position);
+    console.log("hero.position.x:", hero.position.x / 16);
+    console.log("hero.position.y:", hero.position.y / 16);
 
     updateAnimation(hero);
     walk();

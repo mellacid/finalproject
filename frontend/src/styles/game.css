@@ -22,13 +22,13 @@ body{
 
 .game-container{
   position: relative;
-  width: 352px;
-  height: 198px;
+  width: 528px;
+  height: 297px;
   margin: 0 auto;
   
   border: 2px solid #fff;
 
-  transform: scale(2) translateY(50%);
+  transform: scale(1) translateY(50%);
 }
 
 .game-container canvas{

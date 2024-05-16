@@ -1,15 +1,19 @@
 import { withGrid } from "../utils/utils.js";
 
 import forestMapImage from "../../../assets/images/maps/map.png";
+import gimpMap from "../../../assets/images/maps/worldmap-gimp.png";
+
 import heroImage from "../../../assets/images/sprites/dog.jpg";
+import boarImg from "../../../assets/images/sprites/wildboar.png";
+import dogBandanaImg from "../../../assets/images/sprites/dogs_bandana.png";
 
 const demoForest = {
   map: {
-    imgSrc: forestMapImage,
+    imgSrc: gimpMap,
   },
 
   hero: {
-    imgSrc: heroImage,
+    imgSrc: dogBandanaImg,
     animation: "idle-down",
     animationFrame: 0,
     isWalking: false,
@@ -17,11 +21,11 @@ const demoForest = {
   },
   gameObjects: {
     npc1: {
-      imgSrc: heroImage,
+      imgSrc: boarImg,
       animation: "idle-down",
       animationFrame: 0,
       isWalking: false,
-      position: { x: withGrid(4), y: withGrid(0) },
+      position: { x: withGrid(9), y: withGrid(1) },
     },
     npc2: {
       imgSrc: heroImage,

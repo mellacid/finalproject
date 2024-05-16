@@ -1,3 +1,3 @@
 export function withGrid(n) {
-  return n * 16;
+  return n * 24;
 }

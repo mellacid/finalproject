@@ -39,8 +39,8 @@ const Game = () => {
     mapDraw.onload = () => {
       ctx.drawImage(
         mapDraw,
-        withGrid(9) - cameraPerson.x,
-        withGrid(4.5) - cameraPerson.y
+        withGrid(10) - cameraPerson.x,
+        withGrid(6) - cameraPerson.y
       );
     };
   }
@@ -50,22 +50,22 @@ const Game = () => {
       const frameX = animations[object.animation][object.animationFrame][0];
       const frameY = animations[object.animation][object.animationFrame][1];
 
-      const x = object.position.x + withGrid(9) - cameraPerson.x;
-      const y = object.position.y + withGrid(4.5) - cameraPerson.y;
+      const x = object.position.x + withGrid(10) - cameraPerson.x;
+      const y = object.position.y + withGrid(6) - cameraPerson.y;
 
       const objectDraw = new Image();
       objectDraw.src = object.imgSrc;
       objectDraw.onload = () => {
         ctx.drawImage(
           objectDraw,
-          frameX * 32,
-          frameY * 32,
-          32,
-          32,
+          frameX * 48,
+          frameY * 48,
+          48,
+          48,
           x,
           y,
-          32,
-          32
+          48,
+          48
         );
       };
     });
@@ -74,8 +74,8 @@ const Game = () => {
   function drawHero(ctx, cameraPerson) {
     if (!hero) return;
 
-    console.log("hero.position.x:", hero.position.x / 16);
-    console.log("hero.position.y:", hero.position.y / 16);
+    console.log("hero.position.x:", hero.position.x / 24);
+    console.log("hero.position.y:", hero.position.y / 24);
 
     updateAnimation(hero);
     walk();
@@ -83,29 +83,29 @@ const Game = () => {
     const frameX = animations[hero.animation][hero.animationFrame][0];
     const frameY = animations[hero.animation][hero.animationFrame][1];
 
-    const x = hero.position.x + withGrid(9) - cameraPerson.x;
-    const y = hero.position.y + withGrid(4.5) - cameraPerson.y;
+    const x = hero.position.x + withGrid(10) - cameraPerson.x;
+    const y = hero.position.y + withGrid(6) - cameraPerson.y;
 
     const heroDraw = new Image();
     heroDraw.src = hero.imgSrc;
     heroDraw.onload = () => {
-      ctx.drawImage(heroDraw, frameX * 32, frameY * 32, 32, 32, x, y, 32, 32);
+      ctx.drawImage(heroDraw, frameX * 48, frameY * 48, 48, 48, x, y, 48, 48);
     };
   }
 
   function walk() {
     if (key === "up") {
       hero.animation = "walk-up";
-      hero.position.y -= 16;
+      hero.position.y -= 24;
     } else if (key === "down") {
       hero.animation = "walk-down";
-      hero.position.y += 16;
+      hero.position.y += 24;
     } else if (key === "left") {
       hero.animation = "walk-left";
-      hero.position.x -= 16;
+      hero.position.x -= 24;
     } else if (key === "right") {
       hero.animation = "walk-right";
-      hero.position.x += 16;
+      hero.position.x += 24;
     }
   }
 
@@ -129,7 +129,7 @@ const Game = () => {
 
   return (
     <div className="game-container">
-      <canvas ref={canvasRef}></canvas>
+      <canvas ref={canvasRef} width="528" height="297"></canvas>
     </div>
   );
 };

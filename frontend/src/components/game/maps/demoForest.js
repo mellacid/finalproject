@@ -28,11 +28,11 @@ const demoForest = {
       position: { x: withGrid(9), y: withGrid(1) },
     },
     npc2: {
-      imgSrc: heroImage,
+      imgSrc: dogBandanaImg,
       animation: "idle-up",
       animationFrame: 0,
       isWalking: false,
-      position: { x: withGrid(8), y: withGrid(17) },
+      position: { x: withGrid(9), y: withGrid(17) },
     },
   },
 };

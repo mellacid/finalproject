@@ -71,6 +71,8 @@ const Game = () => {
           48
         );
       };
+
+      walls.push(object.position);
     });
   }
 

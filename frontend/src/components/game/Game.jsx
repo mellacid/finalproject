@@ -101,6 +101,16 @@ const Game = () => {
   }
 
   function walk() {
+    if (key === "up") {
+      hero.animation = "walk-up";
+    } else if (key === "down") {
+      hero.animation = "walk-down";
+    } else if (key === "left") {
+      hero.animation = "walk-left";
+    } else if (key === "right") {
+      hero.animation = "walk-right";
+    }
+
     hero.direction = key;
 
     const nextCoord = nextPosition(
@@ -109,24 +119,18 @@ const Game = () => {
       hero.direction
     );
 
-    console.log("nextCoord:", nextCoord);
-
     if (isWall(nextCoord)) {
       console.log("hier is ne Wall!!!");
       return;
     }
 
     if (key === "up") {
-      hero.animation = "walk-up";
       hero.position.y -= 24;
     } else if (key === "down") {
-      hero.animation = "walk-down";
       hero.position.y += 24;
     } else if (key === "left") {
-      hero.animation = "walk-left";
       hero.position.x -= 24;
     } else if (key === "right") {
-      hero.animation = "walk-right";
       hero.position.x += 24;
     }
   }

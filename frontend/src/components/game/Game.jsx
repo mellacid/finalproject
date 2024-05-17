@@ -103,6 +103,8 @@ const Game = () => {
   }
 
   function walk() {
+    if (!hero.isPlayerControlled) return;
+
     if (key === "up") {
       hero.animation = "walk-up";
     } else if (key === "down") {

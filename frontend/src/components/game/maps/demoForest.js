@@ -14,6 +14,7 @@ const demoForest = {
 
   hero: {
     imgSrc: dogBandanaImg,
+    isPlayerControlled: true,
     animation: "idle-down",
     direction: "down",
     animationFrame: 0,

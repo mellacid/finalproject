@@ -1,4 +1,4 @@
-import { withGrid } from "../utils/utils.js";
+import { withGrid, asGridCoord } from "../utils/utils.js";
 
 import forestMapImage from "../../../assets/images/maps/map.png";
 import gimpMap from "../../../assets/images/maps/worldmap-gimp.png";
@@ -15,6 +15,7 @@ const demoForest = {
   hero: {
     imgSrc: dogBandanaImg,
     animation: "idle-down",
+    direction: "down",
     animationFrame: 0,
     isWalking: false,
     position: { x: withGrid(9), y: withGrid(10) },
@@ -35,6 +36,10 @@ const demoForest = {
       position: { x: withGrid(9), y: withGrid(17) },
     },
   },
+  walls: [
+    { x: withGrid(7), y: withGrid(3) },
+    { x: withGrid(11), y: withGrid(3) },
+  ],
 };
 
 export default demoForest;

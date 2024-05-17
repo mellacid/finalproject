@@ -2,7 +2,7 @@ import "../../styles/game.css";
 
 import React, { useState, useRef, useEffect } from "react";
 
-import { withGrid } from "./utils/utils.js";
+import { withGrid, asGridCoord, nextPosition } from "./utils/utils.js";
 import { animations, updateAnimation } from "./utils/animations.js";
 
 import demoForest from "./maps/demoForest.js";
@@ -14,6 +14,7 @@ const Game = () => {
   const [map, setMap] = useState(demoForest.map);
   const [gameObjects, setGameObjects] = useState(demoForest.gameObjects);
   const [hero, setHero] = useState(demoForest.hero);
+  const [walls, setWalls] = useState(demoForest.walls);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -31,6 +32,8 @@ const Game = () => {
 
     // draw hero
     drawHero(ctx, cameraPerson);
+
+    console.log("walls: ", walls);
   }, [key]);
 
   function drawMap(ctx, cameraPerson) {
@@ -74,8 +77,8 @@ const Game = () => {
   function drawHero(ctx, cameraPerson) {
     if (!hero) return;
 
-    console.log("hero.position.x:", hero.position.x / 24);
-    console.log("hero.position.y:", hero.position.y / 24);
+    console.log("hero.position.x:", hero.position.x);
+    console.log("hero.position.y:", hero.position.y);
 
     updateAnimation(hero);
     walk();
@@ -93,7 +96,26 @@ const Game = () => {
     };
   }
 
+  function isWall(coord) {
+    return walls.some((wall) => wall.x === coord.x && wall.y === coord.y);
+  }
+
   function walk() {
+    hero.direction = key;
+
+    const nextCoord = nextPosition(
+      hero.position.x,
+      hero.position.y,
+      hero.direction
+    );
+
+    console.log("nextCoord:", nextCoord);
+
+    if (isWall(nextCoord)) {
+      console.log("hier is ne Wall!!!");
+      return;
+    }
+
     if (key === "up") {
       hero.animation = "walk-up";
       hero.position.y -= 24;

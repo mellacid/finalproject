@@ -28,9 +28,18 @@ const demoForest = {
       animationFrame: 0,
       isWalking: false,
       position: { x: withGrid(9), y: withGrid(1) },
+      behaviorLoop: [
+        { type: "stand", direction: "left", time: 800 },
+        { type: "stand", direction: "down", time: 800 },
+        { type: "stand", direction: "right", time: 1200 },
+        { type: "stand", direction: "down", time: 800 },
+      ],
+      currentBehaviorIndex: 0,
+      behaviorTimeout: null,
     },
     npc2: {
       imgSrc: dogBandanaImg,
+      isStanding: false,
       animation: "idle-up",
       animationFrame: 0,
       isWalking: false,

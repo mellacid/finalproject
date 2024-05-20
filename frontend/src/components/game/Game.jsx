@@ -4,6 +4,7 @@ import React, { useState, useRef, useEffect } from "react";
 
 import { withGrid, asGridCoord, nextPosition } from "./utils/utils.js";
 import { animations, updateAnimation } from "./utils/animations.js";
+import { startBehavior } from "./utils/events.js";
 
 import demoForest from "./maps/demoForest.js";
 
@@ -55,6 +56,9 @@ const Game = () => {
 
       const x = object.position.x + withGrid(10) - cameraPerson.x;
       const y = object.position.y + withGrid(6) - cameraPerson.y;
+
+      startBehavior(object);
+      updateAnimation(object);
 
       const objectDraw = new Image();
       objectDraw.src = object.imgSrc;

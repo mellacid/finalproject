@@ -44,6 +44,14 @@ const demoForest = {
       animationFrame: 0,
       isWalking: false,
       position: { x: withGrid(9), y: withGrid(17) },
+      behaviorLoop: [
+        { type: "walk", direction: "up" },
+        { type: "walk", direction: "up" },
+        { type: "walk", direction: "down" },
+        { type: "walk", direction: "down" },
+      ],
+      currentBehaviorIndex: 0,
+      behaviorTimeout: null,
     },
   },
   walls: [

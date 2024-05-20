@@ -15,7 +15,8 @@ const Game = () => {
   const [map, setMap] = useState(demoForest.map);
   const [gameObjects, setGameObjects] = useState(demoForest.gameObjects);
   const [hero, setHero] = useState(demoForest.hero);
-  const [walls, setWalls] = useState(demoForest.walls);
+  const [staticWalls, setStaticWalls] = useState(demoForest.walls);
+  let walls = [...staticWalls];
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -50,6 +51,8 @@ const Game = () => {
   }
 
   function drawGameObjects(ctx, cameraPerson) {
+    const dynamicWalls = [];
+
     Object.values(gameObjects).forEach((object) => {
       const frameX = animations[object.animation][object.animationFrame][0];
       const frameY = animations[object.animation][object.animationFrame][1];
@@ -76,8 +79,10 @@ const Game = () => {
         );
       };
 
-      walls.push(object.position);
+      dynamicWalls.push(object.position);
     });
+
+    walls = [...staticWalls, ...dynamicWalls];
   }
 
   function drawHero(ctx, cameraPerson) {

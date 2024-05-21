@@ -1,4 +1,5 @@
 import { nextPosition } from "../utils/utils.js";
+import { faceHero } from "../utils/utils.js";
 
 export const startBehavior = (object) => {
   if (!object.behaviorLoop || object.behaviorLoop.length === 0) return;
@@ -35,7 +36,31 @@ export const startBehavior = (object) => {
   }
 };
 
-export const checkInteraction = (nextPosition, gameObjects) => {
+export const checkInteraction = (
+  nextPosition,
+  gameObjects,
+  heroDirection,
+  setShowTextMessage,
+  setCurrentTextMessage
+) => {
   const x = nextPosition.x;
   const y = nextPosition.y;
+
+  Object.values(gameObjects).forEach((object) => {
+    if (object.position.x === x && object.position.y === y) {
+      if (object.talking) {
+        const index = object.currentTalkingIndex;
+        const currentText = object.talking[index];
+        if (index < object.talking.length) {
+          setCurrentTextMessage(currentText.text);
+          object.currentTalkingIndex = index + 1;
+          setShowTextMessage(true);
+        }
+        if (index === object.talking.length) {
+          setShowTextMessage(false);
+          object.currentTalkingIndex = 0;
+        }
+      }
+    }
+  });
 };

@@ -43,7 +43,13 @@ const Game = () => {
         hero.position.y,
         hero.direction
       );
-      console.log("interactionCheck:", interactionCheck);
+      checkInteraction(
+        interactionCheck,
+        gameObjects,
+        hero.direction,
+        setShowTextMessage,
+        setCurrentTextMessage
+      );
     }
   }, [key]);
 

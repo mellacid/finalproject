@@ -36,19 +36,16 @@ const demoForest = {
       ],
       talking: [
         {
-          events: [
-            {
-              type: "textMessage",
-              text: "Hallo, ich bin Giaco das Wildschwein!",
-              faceHero: "npc1",
-            },
-            {
-              type: "textMessage",
-              text: "Ich will Trüffel! *Grunz*",
-            },
-          ],
+          type: "textMessage",
+          text: "Hallo, ich bin Giaco das Wildschwein!",
+          faceHero: "npc1",
+        },
+        {
+          type: "textMessage",
+          text: "Ich will Trüffel! *Grunz*",
         },
       ],
+      currentTalkingIndex: 0,
       currentBehaviorIndex: 0,
       behaviorTimeout: null,
     },

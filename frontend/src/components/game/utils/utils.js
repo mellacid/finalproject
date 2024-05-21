@@ -21,3 +21,15 @@ export function nextPosition(initialX, initialY, direction) {
   }
   return { x, y };
 }
+
+export function faceHero(object, heroDirection) {
+  if (heroDirection === "up") {
+    object.animation = "idle-down";
+  } else if (heroDirection === "down") {
+    object.animation = "idle-up";
+  } else if (heroDirection === "left") {
+    object.animation = "idle-right";
+  } else if (heroDirection === "right") {
+    object.animation = "idle-left";
+  }
+}

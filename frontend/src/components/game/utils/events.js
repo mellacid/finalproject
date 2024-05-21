@@ -34,3 +34,8 @@ export const startBehavior = (object) => {
     }, walkTime);
   }
 };
+
+export const checkInteraction = (nextPosition, gameObjects) => {
+  const x = nextPosition.x;
+  const y = nextPosition.y;
+};

@@ -4,7 +4,7 @@ import React, { useState, useRef, useEffect } from "react";
 
 import { withGrid, asGridCoord, nextPosition } from "./utils/utils.js";
 import { animations, updateAnimation } from "./utils/animations.js";
-import { startBehavior } from "./utils/events.js";
+import { startBehavior, checkInteraction } from "./utils/events.js";
 
 import demoForest from "./maps/demoForest.js";
 
@@ -15,6 +15,8 @@ const Game = () => {
   const [map, setMap] = useState(demoForest.map);
   const [gameObjects, setGameObjects] = useState(demoForest.gameObjects);
   const [hero, setHero] = useState(demoForest.hero);
+  const [showTextMessage, setShowTextMessage] = useState(false);
+  const [currentTextMessage, setCurrentTextMessage] = useState("Test Message");
   const [staticWalls, setStaticWalls] = useState(demoForest.walls);
   let walls = [...staticWalls];
 
@@ -35,7 +37,14 @@ const Game = () => {
     // draw hero
     drawHero(ctx, cameraPerson);
 
-    console.log("walls: ", walls);
+    if (key === "enter") {
+      const interactionCheck = nextPosition(
+        hero.position.x,
+        hero.position.y,
+        hero.direction
+      );
+      console.log("interactionCheck:", interactionCheck);
+    }
   }, [key]);
 
   function drawMap(ctx, cameraPerson) {
@@ -93,6 +102,7 @@ const Game = () => {
 
     console.log("hero.position.x:", hero.position.x);
     console.log("hero.position.y:", hero.position.y);
+    console.log("hero.direction:", hero.direction);
 
     updateAnimation(hero);
     walk();
@@ -119,15 +129,17 @@ const Game = () => {
 
     if (key === "up") {
       hero.animation = "walk-up";
+      hero.direction = "up";
     } else if (key === "down") {
       hero.animation = "walk-down";
+      hero.direction = "down";
     } else if (key === "left") {
       hero.animation = "walk-left";
+      hero.direction = "left";
     } else if (key === "right") {
       hero.animation = "walk-right";
+      hero.direction = "right";
     }
-
-    hero.direction = key;
 
     const nextCoord = nextPosition(
       hero.position.x,
@@ -158,9 +170,10 @@ const Game = () => {
       setKey("down");
     } else if (e.key === "ArrowLeft") {
       setKey("left");
-    }
-    if (e.key === "ArrowRight") {
+    } else if (e.key === "ArrowRight") {
       setKey("right");
+    } else if (e.key === "Enter") {
+      setKey("enter");
     }
   };
 
@@ -172,6 +185,9 @@ const Game = () => {
   return (
     <div className="game-container">
       <canvas ref={canvasRef} width="528" height="297"></canvas>
+      {showTextMessage && (
+        <div className="TextMessage">{currentTextMessage}</div>
+      )}
     </div>
   );
 };

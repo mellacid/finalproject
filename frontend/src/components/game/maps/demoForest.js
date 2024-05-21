@@ -34,6 +34,21 @@ const demoForest = {
         { type: "stand", direction: "right", time: 1200 },
         { type: "stand", direction: "down", time: 800 },
       ],
+      talking: [
+        {
+          events: [
+            {
+              type: "textMessage",
+              text: "Hallo, ich bin Giaco das Wildschwein!",
+              faceHero: "npc1",
+            },
+            {
+              type: "textMessage",
+              text: "Ich will Trüffel! *Grunz*",
+            },
+          ],
+        },
+      ],
       currentBehaviorIndex: 0,
       behaviorTimeout: null,
     },
@@ -50,6 +65,7 @@ const demoForest = {
         { type: "walk", direction: "down", time: 1000 },
         { type: "walk", direction: "down", time: 1000 },
       ],
+
       currentBehaviorIndex: 0,
       behaviorTimeout: null,
     },

@@ -23,11 +23,14 @@ export const startBehavior = (object) => {
       object.position.y,
       behavior.direction
     );
+
+    const walkTime = behavior.time || 1000;
+
     clearTimeout(object.behaviorTimeout);
     object.behaviorTimeout = setTimeout(() => {
       object.currentBehaviorIndex =
         (object.currentBehaviorIndex + 1) % object.behaviorLoop.length;
       startBehavior(object);
-    }, behavior.time);
+    }, walkTime);
   }
 };

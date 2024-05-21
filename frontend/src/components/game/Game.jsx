@@ -60,7 +60,10 @@ const Game = () => {
       const x = object.position.x + withGrid(10) - cameraPerson.x;
       const y = object.position.y + withGrid(6) - cameraPerson.y;
 
-      startBehavior(object);
+      if (!object.behaviorTimeout) {
+        startBehavior(object);
+      }
+
       updateAnimation(object);
 
       const objectDraw = new Image();

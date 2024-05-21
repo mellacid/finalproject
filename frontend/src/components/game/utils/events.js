@@ -49,6 +49,7 @@ export const checkInteraction = (
   Object.values(gameObjects).forEach((object) => {
     if (object.position.x === x && object.position.y === y) {
       if (object.talking) {
+        faceHero(object, heroDirection);
         const index = object.currentTalkingIndex;
         const currentText = object.talking[index];
         if (index < object.talking.length) {

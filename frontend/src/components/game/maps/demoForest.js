@@ -18,6 +18,8 @@ const demoForest = {
     animation: "idle-down",
     direction: "down",
     animationFrame: 0,
+    animationFrameLimit: 24,
+    animationFrameProgress: 24,
     isWalking: false,
     position: { x: withGrid(9), y: withGrid(10) },
   },
@@ -26,6 +28,8 @@ const demoForest = {
       imgSrc: boarImg,
       animation: "idle-down",
       animationFrame: 0,
+      animationFrameLimit: 24,
+      animationFrameProgress: 24,
       isWalking: false,
       position: { x: withGrid(9), y: withGrid(1) },
       behaviorLoop: [
@@ -54,6 +58,8 @@ const demoForest = {
       isStanding: false,
       animation: "idle-up",
       animationFrame: 0,
+      animationFrameLimit: 24,
+      animationFrameProgress: 24,
       isWalking: false,
       position: { x: withGrid(9), y: withGrid(17) },
       behaviorLoop: [

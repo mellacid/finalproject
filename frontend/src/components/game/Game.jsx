@@ -201,14 +201,15 @@ const Game = () => {
       return;
     }
 
+    const step = 1;
     if (key === "up") {
-      hero.position.y -= 24;
+      hero.position.y -= step;
     } else if (key === "down") {
-      hero.position.y += 24;
+      hero.position.y += step;
     } else if (key === "left") {
-      hero.position.x -= 24;
+      hero.position.x -= step;
     } else if (key === "right") {
-      hero.position.x += 24;
+      hero.position.x += step;
     }
   }
 

@@ -35,13 +35,12 @@ export function updateAnimation(who) {
   const animationLength = animationFrames.length || 0;
   const currentFrame = who.animationFrame;
 
-  for (let i = 0; i < animationLength - 1; i++) {
-    if (currentFrame === animationLength - 1) {
-      who.animationFrame = 0;
-      return;
-    } else if (currentFrame === i) {
-      who.animationFrame = currentFrame + 1;
-      return;
-    }
+  if (who.animationFrameProgress > 0) {
+    who.animationFrameProgress -= 1;
+    return;
   }
+
+  who.animationFrameProgress = who.animationFrameLimit;
+
+  who.animationFrame = (currentFrame + 1) % animationLength;
 }

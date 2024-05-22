@@ -1,35 +1,334 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+
+
+
+
+// App.jsx
+/*import { useState } from 'react';
+import '../styles/index.css';
+import '../styles/App.css';
+import Intro from '../components/intro.jsx';
+import Options from '../components/options.jsx';
+import HowToPlay from '../components/howToPlay.jsx';
+import AreYouReady from '../components/areYouReadySlide.jsx';
+import Slide1 from '../components/slide1.jsx';
+import Slide2 from '../components/slide2.jsx';
+import Slide3 from '../components/slide3.jsx';
+import Slide4 from '../components/slide4.jsx';
+import SlideIndicator from '../components/slideIndicator.jsx';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [currentSlide, setCurrentSlide] = useState('intro');
+  const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
+  const [showOverlay, setShowOverlay] = useState(false);
+
+  const handleStart = () => {
+    setShowOverlay(true);
+    setTimeout(() => {
+      setCurrentSlide('howToPlay');
+      setCurrentSlideIndex(1);
+      setShowOverlay(false);
+    }, 500);
+  };
+
+  const handleOptions = () => {
+    setShowOverlay(true);
+    setTimeout(() => {
+      setCurrentSlide('options');
+      setShowOverlay(false);
+    }, 500);
+  };
+
+  const handleReturnToIntro = () => {
+    setShowOverlay(true);
+    setTimeout(() => {
+      setCurrentSlide('intro');
+      setCurrentSlideIndex(0);
+      setShowOverlay(false);
+    }, 500);
+  };
+
+  const handleNextSlide = () => {
+    setShowOverlay(true);
+    setTimeout(() => {
+      let nextSlideIndex = currentSlideIndex + 1;
+      if (nextSlideIndex > 6) {
+        nextSlideIndex = 0;
+      }
+      setCurrentSlideIndex(nextSlideIndex);
+
+      const slides = ['intro', 'howToPlay', 'areYouReady', 'slide1', 'slide2', 'slide3', 'slide4'];
+      setCurrentSlide(slides[nextSlideIndex]);
+
+      setShowOverlay(false);
+    }, 500);
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div className="app-container">
+      <div className={`overlay ${showOverlay ? 'active' : ''}`}></div>
+      {currentSlide === 'intro' && <Intro onStart={handleStart} onOptions={handleOptions} />}
+      {currentSlide === 'howToPlay' && <HowToPlay onConfirmation={() => {}} />}
+      {currentSlide === 'areYouReady' && <AreYouReady onConfirmation={() => {}} />}
+      {currentSlide === 'options' && <Options onReturn={handleReturnToIntro} />}
+      {currentSlide === 'slide1' && <Slide1 />}
+      {currentSlide === 'slide2' && <Slide2 />}
+      {currentSlide === 'slide3' && <Slide3 />}
+      {currentSlide === 'slide4' && <Slide4 />}
+      {currentSlide !== 'intro' && currentSlide !== 'options' && <button onClick={handleNextSlide}>Next</button>}
+      {['howToPlay', 'areYouReady', 'slide1', 'slide2', 'slide3', 'slide4'].includes(currentSlide) && <SlideIndicator index={currentSlideIndex} />}
+    </div>
+  );
 }
 
-export default App
+export default App;*/
+
+/*// App.jsx
+import { useState, useEffect, useCallback } from 'react';
+import '../styles/index.css';
+import '../styles/App.css';
+import Intro from '../components/intro.jsx';
+import Options from '../components/options.jsx';
+import HowToPlay from '../components/howToPlay.jsx';
+import AreYouReady from '../components/areYouReadySlide.jsx';
+import Slide1 from '../components/slide1.jsx';
+import Slide2 from '../components/slide2.jsx';
+import Slide3 from '../components/slide3.jsx';
+import Slide4 from '../components/slide4.jsx';
+import SlideIndicator from '../components/slideIndicator.jsx';
+
+function App() {
+  const [currentSlide, setCurrentSlide] = useState('intro');
+  const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
+  const [showOverlay, setShowOverlay] = useState(false);
+
+  const handleNextSlide = useCallback(() => {
+    if (currentSlide === 'intro' || currentSlide === 'options') {
+      return;
+    }
+    setShowOverlay(true);
+    setTimeout(() => {
+      let nextSlideIndex = currentSlideIndex + 1;
+      if (nextSlideIndex > 5) {
+        nextSlideIndex = 0;
+      }
+      setCurrentSlideIndex(nextSlideIndex);
+
+      const slides = ['howToPlay', 'areYouReady', 'slide1', 'slide2', 'slide3', 'slide4'];
+      setCurrentSlide(slides[nextSlideIndex]);
+
+      setShowOverlay(false);
+    }, 500);
+  }, [currentSlide, currentSlideIndex, setShowOverlay]);
+
+  const handlePreviousSlide = useCallback(() => {
+    if (currentSlide === 'intro' || currentSlide === 'options') {
+      return;
+    }
+    setShowOverlay(true);
+    setTimeout(() => {
+      let previousSlideIndex = currentSlideIndex - 1;
+      if (previousSlideIndex < 0) {
+        previousSlideIndex = 5;
+      }
+      setCurrentSlideIndex(previousSlideIndex);
+
+      const slides = ['howToPlay', 'areYouReady', 'slide1', 'slide2', 'slide3', 'slide4'];
+      setCurrentSlide(slides[previousSlideIndex]);
+
+      setShowOverlay(false);
+    }, 500);
+  }, [currentSlide, currentSlideIndex, setShowOverlay]);
+
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      switch (event.key) {
+        case 'ArrowRight':
+          handleNextSlide();
+          break;
+        case 'ArrowLeft':
+          handlePreviousSlide();
+          break;
+        default:
+          break;
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [handleNextSlide, handlePreviousSlide]);
+
+  const handleStart = () => {
+    setShowOverlay(true);
+    setTimeout(() => {
+      setCurrentSlide('howToPlay');
+      setCurrentSlideIndex(0);
+      setShowOverlay(false);
+    }, 500);
+  };
+
+  const handleOptions = () => {
+    setShowOverlay(true);
+    setTimeout(() => {
+      setCurrentSlide('options');
+      setShowOverlay(false);
+    }, 500);
+  };
+
+  const handleReturnToIntro = () => {
+    setShowOverlay(true);
+    setTimeout(() => {
+      setCurrentSlide('intro');
+      setCurrentSlideIndex(0);
+      setShowOverlay(false);
+    }, 500);
+  };
+
+  return (
+    <div className="app-container">
+      <div className={`overlay ${showOverlay ? 'active' : ''}`}></div>
+      {currentSlide === 'intro' && <Intro onStart={handleStart} onOptions={handleOptions} />}
+      {currentSlide === 'howToPlay' && <HowToPlay onConfirmation={() => {}} />}
+      {currentSlide === 'areYouReady' && <AreYouReady onConfirmation={() => {}} />}
+      {currentSlide === 'options' && <Options onReturn={handleReturnToIntro} />}
+      {currentSlide === 'slide1' && <Slide1 />}
+      {currentSlide === 'slide2' && <Slide2 />}
+      {currentSlide === 'slide3' && <Slide3 />}
+      {currentSlide === 'slide4' && <Slide4 />}
+      {/*['howToPlay', 'areYouReady', 'slide1', 'slide2', 'slide3', 'slide4'].includes(currentSlide) && <button onClick={handleNextSlide}>Next</button>}*/
+      /*{['howToPlay', 'areYouReady', 'slide1', 'slide2', 'slide3', 'slide4'].includes(currentSlide) && <SlideIndicator index={currentSlideIndex} />}
+    </div>
+  );
+}
+
+export default App;*/
+
+//add gameSlide.jsx
+// App.jsx
+import { useState, useEffect, useCallback } from 'react';
+import '../styles/index.css';
+import '../styles/App.css';
+import Intro from '../components/intro.jsx';
+import Options from '../components/options.jsx';
+import HowToPlay from '../components/howToPlay.jsx';
+import AreYouReady from '../components/areYouReadySlide.jsx';
+import Slide1 from '../components/slide1.jsx';
+import Slide2 from '../components/slide2.jsx';
+import Slide3 from '../components/slide3.jsx';
+import Slide4 from '../components/slide4.jsx';
+import GameSlide from '../components/gameSlide.jsx'; 
+import SlideIndicator from '../components/slideIndicator.jsx';
+
+function App() {
+  const [currentSlide, setCurrentSlide] = useState('intro');
+  const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
+  const [showOverlay, setShowOverlay] = useState(false);
+  const [gameState, setGameState] = useState(null); 
+
+  const handleNextSlide = useCallback(() => {
+    if (currentSlide === 'intro' || currentSlide === 'options') {
+      return;
+    }
+    setShowOverlay(true);
+    setTimeout(() => {
+      let nextSlideIndex = currentSlideIndex + 1;
+      if (nextSlideIndex > 6) {
+        nextSlideIndex = 6;
+      }
+      setCurrentSlideIndex(nextSlideIndex);
+
+      const slides = ['howToPlay', 'areYouReady', 'slide1', 'slide2', 'slide3', 'slide4', 'gameSlide']; 
+      setCurrentSlide(slides[nextSlideIndex]);
+
+      setShowOverlay(false);
+    }, 500);
+  }, [currentSlide, currentSlideIndex, setShowOverlay]);
+
+  const handlePreviousSlide = useCallback(() => {
+    if (currentSlide === 'intro' || currentSlide === 'options' || currentSlide === 'howToPlay' || currentSlide === 'gameSlide') {
+      return;
+    }
+    setShowOverlay(true);
+    setTimeout(() => {
+      let previousSlideIndex = currentSlideIndex - 1;
+      if (previousSlideIndex < 0) {
+        previousSlideIndex = 0;
+      }
+      setCurrentSlideIndex(previousSlideIndex);
+
+      const slides = ['howToPlay', 'areYouReady', 'slide1', 'slide2', 'slide3', 'slide4', 'gameSlide']; 
+      setCurrentSlide(slides[previousSlideIndex]);
+
+      setShowOverlay(false);
+    }, 500);
+  }, [currentSlide, currentSlideIndex, setShowOverlay]);
+
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      switch (event.key) {
+        case 'ArrowRight':
+          handleNextSlide();
+          break;
+        case 'ArrowLeft':
+          handlePreviousSlide();
+          break;
+        default:
+          break;
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [handleNextSlide, handlePreviousSlide]);
+
+  const handleStart = () => {
+    setShowOverlay(true);
+    setTimeout(() => {
+      setCurrentSlide('howToPlay');
+      setCurrentSlideIndex(0);
+      setShowOverlay(false);
+    }, 500);
+  };
+
+  const handleOptions = () => {
+    setShowOverlay(true);
+    setTimeout(() => {
+      setCurrentSlide('options');
+      setShowOverlay(false);
+    }, 500);
+  };
+
+  const handleReturnToIntro = () => {
+    setShowOverlay(true);
+    setTimeout(() => {
+      setCurrentSlide('intro');
+      setCurrentSlideIndex(0);
+      setShowOverlay(false);
+    }, 500);
+  };
+
+  return (
+    <div className="app-container">
+      <div className={`overlay ${showOverlay ? 'active' : ''}`}></div>
+      {currentSlide === 'intro' && <Intro onStart={handleStart} onOptions={handleOptions} />}
+      {currentSlide === 'howToPlay' && <HowToPlay onConfirmation={() => {}} />}
+      {currentSlide === 'areYouReady' && <AreYouReady onConfirmation={() => {}} />}
+      {currentSlide === 'options' && <Options onReturn={handleReturnToIntro} />}
+      {currentSlide === 'slide1' && <Slide1 />}
+      {currentSlide === 'slide2' && <Slide2 />}
+      {currentSlide === 'slide3' && <Slide3 />}
+      {currentSlide === 'slide4' && <Slide4 />}
+      {currentSlide === 'gameSlide' && <GameSlide gameState={gameState} setGameState={setGameState} onReturn={handleReturnToIntro} />} 
+      {/*['howToPlay', 'areYouReady', 'slide1', 'slide2', 'slide3', 'slide4'].includes(currentSlide) && <button onClick={handleNextSlide}>Next</button>*/}
+      {['howToPlay', 'areYouReady', 'slide1', 'slide2', 'slide3', 'slide4'].includes(currentSlide) && <SlideIndicator index={currentSlideIndex} />}
+    </div>
+  );
+}
+
+export default App;
+

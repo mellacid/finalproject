@@ -56,8 +56,7 @@ export const checkInteraction = (
           setCurrentTextMessage(currentText.text);
           object.currentTalkingIndex = index + 1;
           setShowTextMessage(true);
-        }
-        if (index === object.talking.length) {
+        } else if (index === object.talking.length) {
           setShowTextMessage(false);
           object.currentTalkingIndex = 0;
         }

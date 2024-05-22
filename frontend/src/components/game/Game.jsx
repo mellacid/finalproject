@@ -1,6 +1,6 @@
 import "../../styles/game.css";
 
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
 
 import { withGrid, asGridCoord, nextPosition } from "./utils/utils.js";
 import { animations, updateAnimation } from "./utils/animations.js";
@@ -20,72 +20,51 @@ const Game = () => {
   const [staticWalls, setStaticWalls] = useState(demoForest.walls);
   let walls = [...staticWalls];
 
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    const ctx = canvas.getContext("2d");
+  const loadImages = (sources) => {
+    const images = {};
+    let loadedImages = 0;
+    const numImages = sources.length;
+    return new Promise((resolve) => {
+      sources.forEach((source) => {
+        images[source] = new Image();
+        images[source].src = source;
+        images[source].onload = () => {
+          if (++loadedImages >= numImages) {
+            resolve(images);
+          }
+        };
+      });
+    });
+  };
 
-    const cameraPerson = hero.position;
+  const drawMap = useCallback(
+    (ctx, cameraPerson, images) => {
+      const x = withGrid(10) - cameraPerson.x;
+      const y = withGrid(6) - cameraPerson.y;
+      ctx.drawImage(images[map.imgSrc], x, y);
+    },
+    [map.imgSrc]
+  );
 
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    // draw map
-    drawMap(ctx, cameraPerson);
-
-    // draw game objects
-    drawGameObjects(ctx, cameraPerson);
-
-    // draw hero
-    drawHero(ctx, cameraPerson);
-
-    if (key === "enter") {
-      const interactionCheck = nextPosition(
-        hero.position.x,
-        hero.position.y,
-        hero.direction
-      );
-      checkInteraction(
-        interactionCheck,
-        gameObjects,
-        hero.direction,
-        setShowTextMessage,
-        setCurrentTextMessage
-      );
-    }
-  }, [key]);
-
-  function drawMap(ctx, cameraPerson) {
-    const mapDraw = new Image();
-    mapDraw.src = map.imgSrc;
-    mapDraw.onload = () => {
-      ctx.drawImage(
-        mapDraw,
-        withGrid(10) - cameraPerson.x,
-        withGrid(6) - cameraPerson.y
-      );
-    };
-  }
-
-  function drawGameObjects(ctx, cameraPerson) {
+  const drawGameObjects = useCallback((ctx, cameraPerson, images) => {
     const dynamicWalls = [];
 
-    Object.values(gameObjects).forEach((object) => {
-      const frameX = animations[object.animation][object.animationFrame][0];
-      const frameY = animations[object.animation][object.animationFrame][1];
+    Object.values(gameObjects).forEach(
+      (object) => {
+        const frameX = animations[object.animation][object.animationFrame][0];
+        const frameY = animations[object.animation][object.animationFrame][1];
 
-      const x = object.position.x + withGrid(10) - cameraPerson.x;
-      const y = object.position.y + withGrid(6) - cameraPerson.y;
+        const x = object.position.x + withGrid(10) - cameraPerson.x;
+        const y = object.position.y + withGrid(6) - cameraPerson.y;
 
-      if (!object.behaviorTimeout) {
-        startBehavior(object);
-      }
+        if (!object.behaviorTimeout) {
+          startBehavior(object);
+        }
 
-      updateAnimation(object);
+        updateAnimation(object);
 
-      const objectDraw = new Image();
-      objectDraw.src = object.imgSrc;
-      objectDraw.onload = () => {
         ctx.drawImage(
-          objectDraw,
+          images[object.imgSrc],
           frameX * 48,
           frameY * 48,
           48,
@@ -95,36 +74,100 @@ const Game = () => {
           48,
           48
         );
-      };
 
-      dynamicWalls.push(object.position);
-    });
+        dynamicWalls.push(object.position);
+      },
+      [gameObjects]
+    );
 
     walls = [...staticWalls, ...dynamicWalls];
-  }
+  });
 
-  function drawHero(ctx, cameraPerson) {
-    if (!hero) return;
+  const drawHero = useCallback(
+    (ctx, cameraPerson, images) => {
+      if (!hero) return;
 
-    console.log("hero.position.x:", hero.position.x);
-    console.log("hero.position.y:", hero.position.y);
-    console.log("hero.direction:", hero.direction);
+      console.log("hero.position.x:", hero.position.x);
+      console.log("hero.position.y:", hero.position.y);
 
-    updateAnimation(hero);
-    walk();
+      const frameX = animations[hero.animation][hero.animationFrame][0];
+      const frameY = animations[hero.animation][hero.animationFrame][1];
 
-    const frameX = animations[hero.animation][hero.animationFrame][0];
-    const frameY = animations[hero.animation][hero.animationFrame][1];
+      const x = hero.position.x + withGrid(10) - cameraPerson.x;
+      const y = hero.position.y + withGrid(6) - cameraPerson.y;
 
-    const x = hero.position.x + withGrid(10) - cameraPerson.x;
-    const y = hero.position.y + withGrid(6) - cameraPerson.y;
+      ctx.drawImage(
+        images[hero.imgSrc],
+        frameX * 48,
+        frameY * 48,
+        48,
+        48,
+        x,
+        y,
+        48,
+        48
+      );
+    },
+    [hero]
+  );
 
-    const heroDraw = new Image();
-    heroDraw.src = hero.imgSrc;
-    heroDraw.onload = () => {
-      ctx.drawImage(heroDraw, frameX * 48, frameY * 48, 48, 48, x, y, 48, 48);
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext("2d");
+
+    const cameraPerson = hero.position;
+
+    const imageSources = [
+      map.imgSrc,
+      ...Object.values(gameObjects).map((obj) => obj.imgSrc),
+      hero.imgSrc,
+    ];
+
+    let animationFrameId;
+
+    const render = async () => {
+      const images = await loadImages(imageSources);
+      const draw = () => {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // draw map
+        drawMap(ctx, cameraPerson, images);
+
+        // draw game objects
+        drawGameObjects(ctx, cameraPerson, images);
+
+        // draw hero
+        drawHero(ctx, cameraPerson, images);
+
+        updateAnimation(hero);
+        walk();
+
+        if (key === "enter") {
+          const interactionCheck = nextPosition(
+            hero.position.x,
+            hero.position.y,
+            hero.direction
+          );
+          checkInteraction(
+            interactionCheck,
+            gameObjects,
+            hero.direction,
+            setShowTextMessage,
+            setCurrentTextMessage
+          );
+        }
+
+        animationFrameId = requestAnimationFrame(draw);
+      };
+      draw();
     };
-  }
+
+    render();
+
+    return () => {
+      cancelAnimationFrame(animationFrameId);
+    };
+  }, [key, drawMap, drawGameObjects, drawHero, hero, map.imgSrc, gameObjects]);
 
   function isWall(coord) {
     return walls.some((wall) => wall.x === coord.x && wall.y === coord.y);
@@ -183,10 +226,19 @@ const Game = () => {
     }
   };
 
-  window.addEventListener("keydown", directionInput);
-  window.addEventListener("keyup", () => {
-    setKey("");
-  });
+  useEffect(() => {
+    const handleKeyUp = () => {
+      setKey("");
+    };
+
+    window.addEventListener("keydown", directionInput);
+    window.addEventListener("keyup", handleKeyUp);
+
+    return () => {
+      window.removeEventListener("keydown", directionInput);
+      window.removeEventListener("keyup", handleKeyUp);
+    };
+  }, []);
 
   return (
     <div className="game-container">

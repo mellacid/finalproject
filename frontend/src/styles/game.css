@@ -13,12 +13,12 @@
   box-sizing: border-box;
 }
 
-body{
+/* body{
   background: #333;
   padding: 0;
   margin: 0;
   overflow: hidden;
-}
+} */
 
 .game-container{
   position: relative;

@@ -2,7 +2,7 @@ import "../../styles/game.css";
 
 import React, { useState, useRef, useEffect, useCallback } from "react";
 
-import { withGrid, asGridCoord, nextPosition } from "./utils/utils.js";
+import { withGrid, asGridCoord, nextPosition, walk } from "./utils/utils.js";
 import { animations, updateAnimation } from "./utils/animations.js";
 import { startBehavior, checkInteraction } from "./utils/events.js";
 
@@ -19,6 +19,9 @@ const Game = () => {
   const [currentTextMessage, setCurrentTextMessage] = useState("Test Message");
   const [staticWalls, setStaticWalls] = useState(demoForest.walls);
   let walls = [...staticWalls];
+  function isWall(coord) {
+    return walls.some((wall) => wall.x === coord.x && wall.y === coord.y);
+  }
 
   const loadImages = (sources) => {
     const images = {};
@@ -142,7 +145,7 @@ const Game = () => {
         updateAnimation(hero);
 
         if (hero.isWalking && hero.isPlayerControlled) {
-          walk(hero);
+          walk(hero, key, isWall);
         } else {
           hero.animation = `idle-${hero.direction}`;
         }
@@ -174,48 +177,6 @@ const Game = () => {
       cancelAnimationFrame(animationFrameId);
     };
   }, [key, drawMap, drawGameObjects, drawHero, hero, map.imgSrc, gameObjects]);
-
-  function isWall(coord) {
-    return walls.some((wall) => wall.x === coord.x && wall.y === coord.y);
-  }
-
-  function walk(who) {
-    if (key === "up") {
-      who.animation = "walk-up";
-      who.direction = "up";
-    } else if (key === "down") {
-      who.animation = "walk-down";
-      who.direction = "down";
-    } else if (key === "left") {
-      who.animation = "walk-left";
-      who.direction = "left";
-    } else if (key === "right") {
-      who.animation = "walk-right";
-      who.direction = "right";
-    }
-
-    const nextCoord = nextPosition(
-      Math.round(who.position.x / 24) * 24,
-      Math.round(who.position.y / 24) * 24,
-      who.direction
-    );
-
-    if (isWall(nextCoord)) {
-      console.log("hier is ne Wall!!!");
-      return;
-    }
-
-    const step = 1;
-    if (key === "up") {
-      who.position.y -= step;
-    } else if (key === "down") {
-      who.position.y += step;
-    } else if (key === "left") {
-      who.position.x -= step;
-    } else if (key === "right") {
-      who.position.x += step;
-    }
-  }
 
   const directionInput = (e) => {
     if (

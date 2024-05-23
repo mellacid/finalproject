@@ -149,8 +149,8 @@ const Game = () => {
 
         if (key === "enter") {
           const interactionCheck = nextPosition(
-            hero.position.x,
-            hero.position.y,
+            Math.round(hero.position.x / 24) * 24,
+            Math.round(hero.position.y / 24) * 24,
             hero.direction
           );
           checkInteraction(
@@ -196,8 +196,8 @@ const Game = () => {
     }
 
     const nextCoord = nextPosition(
-      hero.position.x,
-      hero.position.y,
+      Math.round(hero.position.x / 24) * 24,
+      Math.round(hero.position.y / 24) * 24,
       hero.direction
     );
 

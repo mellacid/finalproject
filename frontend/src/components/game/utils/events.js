@@ -41,7 +41,8 @@ export const checkInteraction = (
   gameObjects,
   heroDirection,
   setShowTextMessage,
-  setCurrentTextMessage
+  setCurrentTextMessage,
+  heroIsPlayerControlled
 ) => {
   const x = nextPosition.x;
   const y = nextPosition.y;
@@ -53,10 +54,12 @@ export const checkInteraction = (
         const index = object.currentTalkingIndex;
         const currentText = object.talking[index];
         if (index < object.talking.length) {
+          heroIsPlayerControlled = false;
           setCurrentTextMessage(currentText.text);
           object.currentTalkingIndex = index + 1;
           setShowTextMessage(true);
         } else if (index === object.talking.length) {
+          heroIsPlayerControlled = true;
           setShowTextMessage(false);
           object.currentTalkingIndex = 0;
         }

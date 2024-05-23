@@ -141,8 +141,8 @@ const Game = () => {
 
         updateAnimation(hero);
 
-        if (hero.isWalking) {
-          walk();
+        if (hero.isWalking && hero.isPlayerControlled) {
+          walk(hero);
         } else {
           hero.animation = `idle-${hero.direction}`;
         }
@@ -158,7 +158,8 @@ const Game = () => {
             gameObjects,
             hero.direction,
             setShowTextMessage,
-            setCurrentTextMessage
+            setCurrentTextMessage,
+            hero.isPlayerControlled
           );
         }
 
@@ -178,27 +179,25 @@ const Game = () => {
     return walls.some((wall) => wall.x === coord.x && wall.y === coord.y);
   }
 
-  function walk() {
-    if (!hero.isPlayerControlled) return;
-
+  function walk(who) {
     if (key === "up") {
-      hero.animation = "walk-up";
-      hero.direction = "up";
+      who.animation = "walk-up";
+      who.direction = "up";
     } else if (key === "down") {
-      hero.animation = "walk-down";
-      hero.direction = "down";
+      who.animation = "walk-down";
+      who.direction = "down";
     } else if (key === "left") {
-      hero.animation = "walk-left";
-      hero.direction = "left";
+      who.animation = "walk-left";
+      who.direction = "left";
     } else if (key === "right") {
-      hero.animation = "walk-right";
-      hero.direction = "right";
+      who.animation = "walk-right";
+      who.direction = "right";
     }
 
     const nextCoord = nextPosition(
-      Math.round(hero.position.x / 24) * 24,
-      Math.round(hero.position.y / 24) * 24,
-      hero.direction
+      Math.round(who.position.x / 24) * 24,
+      Math.round(who.position.y / 24) * 24,
+      who.direction
     );
 
     if (isWall(nextCoord)) {
@@ -208,13 +207,13 @@ const Game = () => {
 
     const step = 1;
     if (key === "up") {
-      hero.position.y -= step;
+      who.position.y -= step;
     } else if (key === "down") {
-      hero.position.y += step;
+      who.position.y += step;
     } else if (key === "left") {
-      hero.position.x -= step;
+      who.position.x -= step;
     } else if (key === "right") {
-      hero.position.x += step;
+      who.position.x += step;
     }
   }
 

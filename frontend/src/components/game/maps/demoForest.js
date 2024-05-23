@@ -31,12 +31,12 @@ const demoForest = {
       animationFrameLimit: 24,
       animationFrameProgress: 24,
       isWalking: false,
-      position: { x: withGrid(9), y: withGrid(1) },
+      position: { x: withGrid(9), y: withGrid(4) },
       behaviorLoop: [
-        { type: "stand", direction: "left", time: 800 },
-        { type: "stand", direction: "down", time: 800 },
-        { type: "stand", direction: "right", time: 1200 },
-        { type: "stand", direction: "down", time: 800 },
+        { type: "stand", direction: "left", time: 2000 },
+        { type: "stand", direction: "down", time: 2000 },
+        { type: "stand", direction: "right", time: 2000 },
+        { type: "stand", direction: "down", time: 2000 },
       ],
       talking: [
         {

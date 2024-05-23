@@ -140,7 +140,12 @@ const Game = () => {
         drawHero(ctx, cameraPerson, images);
 
         updateAnimation(hero);
-        walk();
+
+        if (hero.isWalking) {
+          walk();
+        } else {
+          hero.animation = `idle-${hero.direction}`;
+        }
 
         if (key === "enter") {
           const interactionCheck = nextPosition(
@@ -214,6 +219,17 @@ const Game = () => {
   }
 
   const directionInput = (e) => {
+    if (
+      e.key === "ArrowUp" ||
+      e.key === "ArrowDown" ||
+      e.key === "ArrowLeft" ||
+      e.key === "ArrowRight"
+    ) {
+      hero.isWalking = true;
+    } else {
+      hero.isWalking = false;
+    }
+
     if (e.key === "ArrowUp") {
       setKey("up");
     } else if (e.key === "ArrowDown") {
@@ -230,6 +246,7 @@ const Game = () => {
   useEffect(() => {
     const handleKeyUp = () => {
       setKey("");
+      hero.isWalking = false;
     };
 
     window.addEventListener("keydown", directionInput);

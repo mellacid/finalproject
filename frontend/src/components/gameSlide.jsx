@@ -1,12 +1,11 @@
-
-
 // GameSlide.jsx
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
+import Game from "./game/Game.jsx";
 
 const GameSlide = ({ onReturn }) => (
-  <div>
+  <div className="game-slide-container">
     <h1>GAME</h1>
-    {/* Inserisci qui il tuo gioco */}
+    <Game />
     <button onClick={onReturn}>Back to menu</button>
   </div>
 );

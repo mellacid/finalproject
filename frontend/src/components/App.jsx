@@ -216,7 +216,6 @@ import Slide3 from "../components/slide3.jsx";
 import Slide4 from "../components/slide4.jsx";
 import GameSlide from "../components/gameSlide.jsx";
 import SlideIndicator from "../components/slideIndicator.jsx";
-import Game from "../components/game/Game.jsx";
 
 function App() {
   const [currentSlide, setCurrentSlide] = useState("intro");
@@ -361,7 +360,6 @@ function App() {
         "slide3",
         "slide4",
       ].includes(currentSlide) && <SlideIndicator index={currentSlideIndex} />}
-      <Game />
     </div>
   );
 }

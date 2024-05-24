@@ -17,22 +17,38 @@ export const startBehavior = (object) => {
   }
 
   if (behavior.type === "walk") {
-    object.animation = `walk-${behavior.direction}`;
-    object.isWalking = true;
-    object.position = nextPosition(
-      object.position.x,
-      object.position.y,
-      behavior.direction
-    );
-
-    const walkTime = behavior.time || 1000;
-
+    const walkTime = behavior.time || 100;
     clearTimeout(object.behaviorTimeout);
     object.behaviorTimeout = setTimeout(() => {
       object.currentBehaviorIndex =
         (object.currentBehaviorIndex + 1) % object.behaviorLoop.length;
+      walk(object, behavior.direction);
       startBehavior(object);
     }, walkTime);
+
+    function walk(who, direction) {
+      if (direction === "up") {
+        who.animation = "walk-up";
+        who.direction = "up";
+        who.position.y -= 1;
+        return;
+      } else if (direction === "down") {
+        who.animation = "walk-down";
+        who.direction = "down";
+        who.position.y += 1;
+        return;
+      } else if (direction === "left") {
+        who.animation = "walk-left";
+        who.direction = "left";
+        who.position.x -= 1;
+        return;
+      } else if (direction === "right") {
+        who.animation = "walk-right";
+        who.direction = "right";
+        who.position.x += 1;
+        return;
+      }
+    }
   }
 };
 
@@ -41,8 +57,7 @@ export const checkInteraction = (
   gameObjects,
   heroDirection,
   setShowTextMessage,
-  setCurrentTextMessage,
-  heroIsPlayerControlled
+  setCurrentTextMessage
 ) => {
   const x = nextPosition.x;
   const y = nextPosition.y;
@@ -54,12 +69,10 @@ export const checkInteraction = (
         const index = object.currentTalkingIndex;
         const currentText = object.talking[index];
         if (index < object.talking.length) {
-          heroIsPlayerControlled = false;
           setCurrentTextMessage(currentText.text);
           object.currentTalkingIndex = index + 1;
           setShowTextMessage(true);
         } else if (index === object.talking.length) {
-          heroIsPlayerControlled = true;
           setShowTextMessage(false);
           object.currentTalkingIndex = 0;
         }

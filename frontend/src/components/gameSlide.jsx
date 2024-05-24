@@ -1,18 +1,11 @@
+import Game from "./game/Game.jsx";
 
-
-// GameSlide.jsx
-import PropTypes from 'prop-types';
-
-const GameSlide = ({ onReturn }) => (
-  <div>
+const GameSlide = () => (
+  <div className="game-slide-container">
     <h1>GAME</h1>
-    {/* Inserisci qui il tuo gioco */}
-    <button onClick={onReturn}>Back to menu</button>
+    <Game />
+    <button>Back to menu</button>
   </div>
 );
-
-GameSlide.propTypes = {
-  onReturn: PropTypes.func.isRequired,
-};
 
 export default GameSlide;

@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 const SlideIndicator = ({ index, onDotClick }) => (
   <div className="slide-indicator">
-    {Array.from({ length: 7 }, (_, i) => (
+    {Array.from({ length: 6 }, (_, i) => (
       <span
         key={i}
         className={`dot ${index === i ? "active" : ""}`}

@@ -16,11 +16,14 @@ const Story = () => {
   const [gameState, setGameState] = useState(null);
 
   const handleNextSlide = useCallback(() => {
+    if (currentSlide === "slide4") {
+      return;
+    }
     setShowOverlay(true);
     setTimeout(() => {
       let nextSlideIndex = currentSlideIndex + 1;
-      if (nextSlideIndex > 6) {
-        nextSlideIndex = 6;
+      if (nextSlideIndex > 5) {
+        nextSlideIndex = 5;
       }
       setCurrentSlideIndex(nextSlideIndex);
 

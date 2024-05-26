@@ -1,44 +1,63 @@
 const http = require("http");
+const path = require("path");
 const server = http.createServer();
 const { Server } = require("socket.io");
 const io = new Server(server, {
   cors: {
-    origin: "*",
+    origin: ["http://localhost:5173", "http://localhost:3002"],
+    credentials: true,
   },
 });
-
 require("dotenv").config();
 const tmi = require("tmi.js");
 const channelName = process.env.TWITCH_CHANNEL;
 
-const client = new tmi.Client({
-    options: { debug: true },
+const options = {
+  options: {
+    debug: true,
+  },
+  connection: {
+    reconnect: true,
+  },
   identity: {
     username: process.env.TWITCH_USERNAME,
     password: `oauth:${process.env.TWITCH_OAUTH_TOKEN}`,
   },
   channels: [channelName],
+};
+
+const client = new tmi.Client(options);
+
+client.connect().catch(console.error);
+
+client.on("connected", (address, port) => {
+  console.log(`Bot connected to ${address}:${port}`);
 });
 
-client.connect();
-
 client.on("message", (channel, tags, message, self) => {
-  if (self) return; // Ignore messages from the bot
-  io.emit("chat message", tags.username, message);
-
+  if (self) return;
   if (message.startsWith("!medizin")) {
-    io.emit("showImage", "../img/medizin.png");
+    console.log("Medizin Befehl empfangen!");
+    const imagePath = path.resolve(__dirname, "img", "medizin.png");
+    console.log("Sending image path:", imagePath);
+    io.emit("showImage", imagePath);
+  } else {
+    console.log(`[${channel}] ${tags["display-name"]}: ${message}`);
+    io.emit("chatMessage", `[${channel}] ${tags["display-name"]}: ${message}`);
   }
 });
 
 io.on("connection", (socket) => {
   console.log("Client connected");
-
-  socket.on("message", (message) => {
-    io.emit("message", message); // Send message to all clients
+  socket.on("disconnect", () => {
+    console.log("Client disconnected");
   });
 });
 
-server.listen(3001, () => {
-  console.log("Server running on port 3001");
-});
+server
+  .listen(3002, () => {
+    console.log("Server running on port 3002");
+  })
+  .on("error", (error) => {
+    console.error("Server Error:", error);
+  });

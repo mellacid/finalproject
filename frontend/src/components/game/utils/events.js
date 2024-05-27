@@ -94,4 +94,30 @@ export const triggerEvent = (
     setShowTextMessage(true);
     object.currentEventIndex = index + 1;
   }
+
+  if (type === "walk") {
+    setShowTextMessage(false);
+    for (let i = index; i < eventLength; i++) {
+      const direction = object.event[i].direction;
+      const time = object.event[i].time;
+
+      object.animation = `walk-${direction}`;
+      object.isWalking = true;
+      object.position = nextPosition(
+        object.position.x,
+        object.position.y,
+        direction
+      );
+
+      const walkTime = time || 1000;
+
+      clearTimeout(time);
+      object.behaviorTimeout = setTimeout(() => {
+        object.currentBehaviorIndex =
+          (object.currentBehaviorIndex + 1) % object.behaviorLoop.length;
+      }, walkTime);
+
+      object.currentEventIndex = i + 1;
+    }
+  }
 };

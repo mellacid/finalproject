@@ -38,7 +38,12 @@ client.on("message", (channel, tags, message, self) => {
   if (self) return;
   if (message.startsWith("!medizin")) {
     console.log("Medizin Befehl empfangen!");
-    const imagePath = path.resolve(__dirname, "img", "medizin.png");
+    const imagePath = "medizinImage";
+    console.log("Sending image path:", imagePath);
+    io.emit("showImage", imagePath);
+  } else if (message.startsWith("!image2")) {
+    console.log("Image2 Befehl empfangen!");
+    const imagePath = "image2";
     console.log("Sending image path:", imagePath);
     io.emit("showImage", imagePath);
   } else {

@@ -24,6 +24,8 @@ const Game = () => {
     return walls.some((wall) => wall.x === coord.x && wall.y === coord.y);
   }
 
+  const [truffle, setTruffle] = useState(true);
+
   const loadImages = (sources) => {
     const images = {};
     let loadedImages = 0;
@@ -162,7 +164,9 @@ const Game = () => {
             hero.direction,
             showTextMessage,
             setShowTextMessage,
-            setCurrentTextMessage
+            setCurrentTextMessage,
+            truffle,
+            setTruffle
           );
           setIsEnterPressed(false);
         }

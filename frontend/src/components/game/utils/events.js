@@ -42,7 +42,9 @@ export const checkInteraction = (
   heroDirection,
   showTextMessage,
   setShowTextMessage,
-  setCurrentTextMessage
+  setCurrentTextMessage,
+  truffle,
+  setTruffle
 ) => {
   const x = nextPosition.x;
   const y = nextPosition.y;
@@ -51,6 +53,12 @@ export const checkInteraction = (
     if (object.position.x === x && object.position.y === y) {
       if (object.talking) {
         faceHero(object, heroDirection);
+
+        if (object.id === "npc1" && truffle) {
+          triggerEvent(object, setCurrentTextMessage, setShowTextMessage);
+          return;
+        }
+
         const index = object.currentTalkingIndex;
         const currentText = object.talking[index];
         if (index < object.talking.length) {
@@ -68,4 +76,22 @@ export const checkInteraction = (
       }
     }
   });
+};
+
+export const triggerEvent = (
+  object,
+  setCurrentTextMessage,
+  setShowTextMessage
+) => {
+  const index = object.currentEventIndex;
+  const eventLength = object.event.length;
+
+  const type = object.event[index].type;
+
+  if (type === "textMessage") {
+    const text = object.event[index].text;
+    setCurrentTextMessage(text);
+    setShowTextMessage(true);
+    object.currentEventIndex = index + 1;
+  }
 };

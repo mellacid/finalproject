@@ -25,6 +25,7 @@ const demoForest = {
   },
   gameObjects: {
     npc1: {
+      id: "npc1",
       imgSrc: boarImg,
       animation: "idle-down",
       animationFrame: 0,
@@ -49,8 +50,17 @@ const demoForest = {
           text: "Ich will Trüffel! *Grunz*",
         },
       ],
+      event: [
+        { type: "textMessage", text: "Danke für den Trüffel!" },
+        { type: "textMessage", text: "Ich bin satt!" },
+        { type: "textMessage", text: "Ich gehe jetzt schlafen!" },
+        { type: "walk", direction: "up", time: 1000 },
+        { type: "walk", direction: "up", time: 1000 },
+        { type: "walk", direction: "left", time: 1000 },
+      ],
       currentTalkingIndex: 0,
       currentBehaviorIndex: 0,
+      currentEventIndex: 0,
       behaviorTimeout: null,
     },
     npc2: {

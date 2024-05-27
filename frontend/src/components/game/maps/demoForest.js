@@ -6,6 +6,7 @@ import gimpMap from "../../../assets/images/maps/worldmap-gimp.png";
 import heroImage from "../../../assets/images/sprites/dog.jpg";
 import boarImg from "../../../assets/images/sprites/wildboar.png";
 import dogBandanaImg from "../../../assets/images/sprites/dogs_bandana.png";
+import truffleImg from "../../../assets/images/sprites/dog.jpg";
 
 const demoForest = {
   map: {
@@ -81,6 +82,13 @@ const demoForest = {
 
       currentBehaviorIndex: 0,
       behaviorTimeout: null,
+    },
+    truffle: {
+      id: "truffle",
+      imgSrc: truffleImg,
+      animation: "idle-down",
+      animationFrame: 0,
+      position: { x: withGrid(0), y: withGrid(0) },
     },
   },
   walls: [

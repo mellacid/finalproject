@@ -6,6 +6,8 @@ import { withGrid, asGridCoord, nextPosition, walk } from "./utils/utils.js";
 import { animations, updateAnimation } from "./utils/animations.js";
 import { startBehavior, checkInteraction } from "./utils/events.js";
 
+import truffleImg from "../../assets/images/sprites/dog.jpg";
+
 import demoForest from "./maps/demoForest.js";
 
 const Game = () => {
@@ -193,6 +195,21 @@ const Game = () => {
     showTextMessage,
   ]);
 
+  const addGameObject = () => {
+    setGameObjects((prev) => {
+      return {
+        ...prev,
+        truffle: {
+          id: "truffle",
+          imgSrc: truffleImg,
+          position: { x: withGrid(9), y: withGrid(23) },
+          animation: "idle-down",
+          animationFrame: 0,
+        },
+      };
+    });
+  };
+
   const directionInput = (e) => {
     if (
       e.key === "ArrowUp" ||
@@ -215,6 +232,9 @@ const Game = () => {
       setKey("right");
     } else if (e.key === "Enter") {
       setIsEnterPressed(true);
+    } else if (e.key === "p") {
+      console.log("p pressed");
+      addGameObject();
     }
   };
 

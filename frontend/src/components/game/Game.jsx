@@ -11,6 +11,7 @@ import demoForest from "./maps/demoForest.js";
 const Game = () => {
   const canvasRef = useRef(null);
   const [key, setKey] = useState("");
+  const [isEnterPressed, setIsEnterPressed] = useState(false);
 
   const [map, setMap] = useState(demoForest.map);
   const [gameObjects, setGameObjects] = useState(demoForest.gameObjects);
@@ -90,9 +91,6 @@ const Game = () => {
     (ctx, cameraPerson, images) => {
       if (!hero) return;
 
-      console.log("hero.position.x:", hero.position.x);
-      console.log("hero.position.y:", hero.position.y);
-
       const frameX = animations[hero.animation][hero.animationFrame][0];
       const frameY = animations[hero.animation][hero.animationFrame][1];
 
@@ -119,6 +117,8 @@ const Game = () => {
     const ctx = canvas.getContext("2d");
 
     const cameraPerson = hero.position;
+
+    console.log("hero: ", hero);
 
     const imageSources = [
       map.imgSrc,
@@ -150,7 +150,7 @@ const Game = () => {
           hero.animation = `idle-${hero.direction}`;
         }
 
-        if (key === "enter") {
+        if (isEnterPressed) {
           const interactionCheck = nextPosition(
             Math.round(hero.position.x / 24) * 24,
             Math.round(hero.position.y / 24) * 24,
@@ -160,10 +160,11 @@ const Game = () => {
             interactionCheck,
             gameObjects,
             hero.direction,
+            showTextMessage,
             setShowTextMessage,
-            setCurrentTextMessage,
-            hero.isPlayerControlled
+            setCurrentTextMessage
           );
+          setIsEnterPressed(false);
         }
 
         animationFrameId = requestAnimationFrame(draw);
@@ -176,7 +177,17 @@ const Game = () => {
     return () => {
       cancelAnimationFrame(animationFrameId);
     };
-  }, [key, drawMap, drawGameObjects, drawHero, hero, map.imgSrc, gameObjects]);
+  }, [
+    key,
+    isEnterPressed,
+    drawMap,
+    drawGameObjects,
+    drawHero,
+    hero,
+    map.imgSrc,
+    gameObjects,
+    showTextMessage,
+  ]);
 
   const directionInput = (e) => {
     if (
@@ -199,7 +210,7 @@ const Game = () => {
     } else if (e.key === "ArrowRight") {
       setKey("right");
     } else if (e.key === "Enter") {
-      setKey("enter");
+      setIsEnterPressed(true);
     }
   };
 

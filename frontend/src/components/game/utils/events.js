@@ -86,10 +86,13 @@ export const triggerEvent = (
   const index = object.currentEventIndex;
   const eventLength = object.event.length;
 
-  const type = object.event[index].type;
+  if (index >= eventLength) return; // Stop if all events are processed
+
+  const event = object.event[index];
+  const type = event.type;
 
   if (type === "textMessage") {
-    const text = object.event[index].text;
+    const text = event.text;
     setCurrentTextMessage(text);
     setShowTextMessage(true);
     object.currentEventIndex = index + 1;
@@ -97,27 +100,22 @@ export const triggerEvent = (
 
   if (type === "walk") {
     setShowTextMessage(false);
-    for (let i = index; i < eventLength; i++) {
-      const direction = object.event[i].direction;
-      const time = object.event[i].time;
+    const direction = event.direction;
+    const time = event.time || 1000;
 
-      object.animation = `walk-${direction}`;
-      object.isWalking = true;
-      object.position = nextPosition(
-        object.position.x,
-        object.position.y,
-        direction
-      );
+    object.animation = `walk-${direction}`;
+    object.isWalking = true;
+    object.position = nextPosition(
+      object.position.x,
+      object.position.y,
+      direction
+    );
 
-      const walkTime = time || 1000;
+    setTimeout(() => {
+      // After walking, trigger the next event recursively
+      triggerEvent(object, setCurrentTextMessage, setShowTextMessage);
+    }, time);
 
-      clearTimeout(time);
-      object.behaviorTimeout = setTimeout(() => {
-        object.currentBehaviorIndex =
-          (object.currentBehaviorIndex + 1) % object.behaviorLoop.length;
-      }, walkTime);
-
-      object.currentEventIndex = i + 1;
-    }
+    object.currentEventIndex = index + 1;
   }
 };

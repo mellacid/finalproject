@@ -32,7 +32,7 @@ const useGame = (
         truffle: {
           id: "truffle",
           imgSrc: truffleImg,
-          position: { x: withGrid(9), y: withGrid(23) },
+          position: { x: withGrid(9), y: withGrid(21) },
           animation: "item",
           animationFrame: 0,
           item: true,

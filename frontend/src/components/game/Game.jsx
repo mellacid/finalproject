@@ -21,6 +21,8 @@ import demoForest from "./maps/demoForest.js";
 import { ItemContainer } from "./utils/ItemContainer.jsx";
 
 const Game = () => {
+  const level = demoForest;
+
   const {
     lowerMap,
     upperMap,
@@ -41,16 +43,11 @@ const Game = () => {
     setShowItemContainer,
     itemContainer,
     setItemContainer,
-  } = useGame(
-    demoForest.lowerMap,
-    demoForest.upperMap,
-    demoForest.gameObjects,
-    demoForest.hero
-  );
+  } = useGame(level.lowerMap, level.upperMap, level.gameObjects, level.hero);
 
   const canvasRef = useRef(null);
 
-  const [staticWalls, setStaticWalls] = useState(demoForest.walls);
+  const [staticWalls, setStaticWalls] = useState(level.walls);
   let walls = [...staticWalls];
   function isWall(coord) {
     return walls.some((wall) => wall.x === coord.x && wall.y === coord.y);

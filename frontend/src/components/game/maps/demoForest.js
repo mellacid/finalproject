@@ -6,6 +6,7 @@ import gimpMap from "../../../assets/images/maps/worldmap-gimp.png";
 import heroImage from "../../../assets/images/sprites/dog.jpg";
 import boarImg from "../../../assets/images/sprites/wildboar.png";
 import dogBandanaImg from "../../../assets/images/sprites/dogs_bandana.png";
+import truffleImg from "../../../assets/images/sprites/dog.jpg";
 
 const demoForest = {
   map: {
@@ -25,6 +26,7 @@ const demoForest = {
   },
   gameObjects: {
     npc1: {
+      id: "npc1",
       imgSrc: boarImg,
       animation: "idle-down",
       animationFrame: 0,
@@ -49,8 +51,17 @@ const demoForest = {
           text: "Ich will Trüffel! *Grunz*",
         },
       ],
+      event: [
+        { type: "textMessage", text: "Danke für den Trüffel!" },
+        { type: "textMessage", text: "Ich bin satt!" },
+        { type: "textMessage", text: "Ich gehe jetzt schlafen!" },
+        { type: "walk", direction: "up", time: 1000 },
+        { type: "walk", direction: "up", time: 1000 },
+        { type: "walk", direction: "left", time: 1000 },
+      ],
       currentTalkingIndex: 0,
       currentBehaviorIndex: 0,
+      currentEventIndex: 0,
       behaviorTimeout: null,
     },
     npc2: {
@@ -71,6 +82,18 @@ const demoForest = {
 
       currentBehaviorIndex: 0,
       behaviorTimeout: null,
+    },
+    truffle: {
+      id: "truffle",
+      imgSrc: truffleImg,
+      animation: "idle-down",
+      animationFrame: 0,
+      position: { x: withGrid(-100), y: withGrid(-100) },
+      item: true,
+      event: [
+        { type: "textMessage", text: "Du hast den Trüffel gefunden!" },
+        { type: "takeItem", position: { x: withGrid(0), y: withGrid(0) } },
+      ],
     },
   },
   walls: [

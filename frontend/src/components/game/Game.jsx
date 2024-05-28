@@ -2,15 +2,18 @@ import "../../styles/game.css";
 
 import React, { useState, useRef, useEffect, useCallback } from "react";
 
-import { withGrid, asGridCoord, nextPosition } from "./utils/utils.js";
+import { withGrid, asGridCoord, nextPosition, walk } from "./utils/utils.js";
 import { animations, updateAnimation } from "./utils/animations.js";
 import { startBehavior, checkInteraction } from "./utils/events.js";
+
+import truffleImg from "../../assets/images/sprites/dog.jpg";
 
 import demoForest from "./maps/demoForest.js";
 
 const Game = () => {
   const canvasRef = useRef(null);
   const [key, setKey] = useState("");
+  const [isEnterPressed, setIsEnterPressed] = useState(false);
 
   const [map, setMap] = useState(demoForest.map);
   const [gameObjects, setGameObjects] = useState(demoForest.gameObjects);
@@ -19,6 +22,11 @@ const Game = () => {
   const [currentTextMessage, setCurrentTextMessage] = useState("Test Message");
   const [staticWalls, setStaticWalls] = useState(demoForest.walls);
   let walls = [...staticWalls];
+  function isWall(coord) {
+    return walls.some((wall) => wall.x === coord.x && wall.y === coord.y);
+  }
+
+  const [truffle, setTruffle] = useState(false);
 
   const loadImages = (sources) => {
     const images = {};
@@ -87,9 +95,6 @@ const Game = () => {
     (ctx, cameraPerson, images) => {
       if (!hero) return;
 
-      console.log("hero.position.x:", hero.position.x);
-      console.log("hero.position.y:", hero.position.y);
-
       const frameX = animations[hero.animation][hero.animationFrame][0];
       const frameY = animations[hero.animation][hero.animationFrame][1];
 
@@ -117,6 +122,8 @@ const Game = () => {
 
     const cameraPerson = hero.position;
 
+    console.log("hero: ", hero);
+
     const imageSources = [
       map.imgSrc,
       ...Object.values(gameObjects).map((obj) => obj.imgSrc),
@@ -142,12 +149,12 @@ const Game = () => {
         updateAnimation(hero);
 
         if (hero.isWalking && hero.isPlayerControlled) {
-          walk(hero);
+          walk(hero, key, isWall);
         } else {
           hero.animation = `idle-${hero.direction}`;
         }
 
-        if (key === "enter") {
+        if (isEnterPressed) {
           const interactionCheck = nextPosition(
             Math.round(hero.position.x / 24) * 24,
             Math.round(hero.position.y / 24) * 24,
@@ -157,10 +164,13 @@ const Game = () => {
             interactionCheck,
             gameObjects,
             hero.direction,
+            showTextMessage,
             setShowTextMessage,
             setCurrentTextMessage,
-            hero.isPlayerControlled
+            truffle,
+            setTruffle
           );
+          setIsEnterPressed(false);
         }
 
         animationFrameId = requestAnimationFrame(draw);
@@ -173,49 +183,33 @@ const Game = () => {
     return () => {
       cancelAnimationFrame(animationFrameId);
     };
-  }, [key, drawMap, drawGameObjects, drawHero, hero, map.imgSrc, gameObjects]);
+  }, [
+    key,
+    isEnterPressed,
+    drawMap,
+    drawGameObjects,
+    drawHero,
+    hero,
+    map.imgSrc,
+    gameObjects,
+    showTextMessage,
+  ]);
 
-  function isWall(coord) {
-    return walls.some((wall) => wall.x === coord.x && wall.y === coord.y);
-  }
-
-  function walk(who) {
-    if (key === "up") {
-      who.animation = "walk-up";
-      who.direction = "up";
-    } else if (key === "down") {
-      who.animation = "walk-down";
-      who.direction = "down";
-    } else if (key === "left") {
-      who.animation = "walk-left";
-      who.direction = "left";
-    } else if (key === "right") {
-      who.animation = "walk-right";
-      who.direction = "right";
-    }
-
-    const nextCoord = nextPosition(
-      Math.round(who.position.x / 24) * 24,
-      Math.round(who.position.y / 24) * 24,
-      who.direction
-    );
-
-    if (isWall(nextCoord)) {
-      console.log("hier is ne Wall!!!");
-      return;
-    }
-
-    const step = 1;
-    if (key === "up") {
-      who.position.y -= step;
-    } else if (key === "down") {
-      who.position.y += step;
-    } else if (key === "left") {
-      who.position.x -= step;
-    } else if (key === "right") {
-      who.position.x += step;
-    }
-  }
+  const addGameObject = () => {
+    setGameObjects((prev) => {
+      return {
+        ...prev,
+        truffle: {
+          id: "truffle",
+          imgSrc: truffleImg,
+          position: { x: withGrid(9), y: withGrid(23) },
+          animation: "idle-down",
+          animationFrame: 0,
+          item: true,
+        },
+      };
+    });
+  };
 
   const directionInput = (e) => {
     if (
@@ -238,7 +232,10 @@ const Game = () => {
     } else if (e.key === "ArrowRight") {
       setKey("right");
     } else if (e.key === "Enter") {
-      setKey("enter");
+      setIsEnterPressed(true);
+    } else if (e.key === "p") {
+      console.log("p pressed");
+      addGameObject();
     }
   };
 

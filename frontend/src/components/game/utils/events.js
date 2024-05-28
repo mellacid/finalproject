@@ -1,5 +1,6 @@
 import { nextPosition } from "../utils/utils.js";
 import { faceHero } from "../utils/utils.js";
+import { withGrid } from "../utils/utils.js";
 
 export const startBehavior = (object) => {
   if (!object.behaviorLoop || object.behaviorLoop.length === 0) return;
@@ -126,5 +127,5 @@ export const triggerEvent = (
 
 export const pickupItem = (object, setTruffle) => {
   setTruffle(true);
-  object.position = { x: 0, y: 0 };
+  object.position = { x: withGrid(-100), y: withGrid(-100) };
 };

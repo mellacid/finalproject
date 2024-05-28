@@ -88,7 +88,7 @@ const demoForest = {
       imgSrc: truffleImg,
       animation: "idle-down",
       animationFrame: 0,
-      position: { x: withGrid(0), y: withGrid(0) },
+      position: { x: withGrid(-100), y: withGrid(-100) },
       item: true,
       event: [
         { type: "textMessage", text: "Du hast den Trüffel gefunden!" },

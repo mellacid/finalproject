@@ -22,7 +22,8 @@ import { ItemContainer } from "./utils/ItemContainer.jsx";
 
 const Game = () => {
   const {
-    map,
+    lowerMap,
+    upperMap,
     gameObjects,
     hero,
     key,
@@ -40,7 +41,12 @@ const Game = () => {
     setShowItemContainer,
     itemContainer,
     setItemContainer,
-  } = useGame(demoForest.map, demoForest.gameObjects, demoForest.hero);
+  } = useGame(
+    demoForest.lowerMap,
+    demoForest.upperMap,
+    demoForest.gameObjects,
+    demoForest.hero
+  );
 
   const canvasRef = useRef(null);
 
@@ -50,13 +56,22 @@ const Game = () => {
     return walls.some((wall) => wall.x === coord.x && wall.y === coord.y);
   }
 
-  const drawMap = useCallback(
+  const drawLowerMap = useCallback(
     (ctx, cameraPerson, images) => {
       const x = withGrid(10) - cameraPerson.x;
       const y = withGrid(6) - cameraPerson.y;
-      ctx.drawImage(images[map.imgSrc], x, y);
+      ctx.drawImage(images[lowerMap.imgSrc], x, y);
     },
-    [map.imgSrc]
+    [lowerMap.imgSrc]
+  );
+
+  const drawUpperMap = useCallback(
+    (ctx, cameraPerson, images) => {
+      const x = withGrid(10) - cameraPerson.x;
+      const y = withGrid(6) - cameraPerson.y;
+      ctx.drawImage(images[upperMap.imgSrc], x, y);
+    },
+    [upperMap.imgSrc]
   );
 
   const drawGameObjects = useCallback((ctx, cameraPerson, images) => {
@@ -130,7 +145,8 @@ const Game = () => {
     console.log("hero: ", hero);
 
     const imageSources = [
-      map.imgSrc,
+      lowerMap.imgSrc,
+      upperMap.imgSrc,
       ...Object.values(gameObjects).map((obj) => obj.imgSrc),
       hero.imgSrc,
     ];
@@ -142,14 +158,17 @@ const Game = () => {
       const draw = () => {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        // draw map
-        drawMap(ctx, cameraPerson, images);
+        // draw lower map
+        drawLowerMap(ctx, cameraPerson, images);
 
         // draw game objects
         drawGameObjects(ctx, cameraPerson, images);
 
         // draw hero
         drawHero(ctx, cameraPerson, images);
+
+        // draw upper map
+        drawUpperMap(ctx, cameraPerson, images);
 
         updateAnimation(hero);
 
@@ -192,11 +211,13 @@ const Game = () => {
   }, [
     key,
     isEnterPressed,
-    drawMap,
+    drawLowerMap,
+    drawUpperMap,
     drawGameObjects,
     drawHero,
     hero,
-    map.imgSrc,
+    lowerMap.imgSrc,
+    upperMap.imgSrc,
     gameObjects,
     showTextMessage,
   ]);

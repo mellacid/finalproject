@@ -3,14 +3,20 @@ import { withGrid, asGridCoord } from "../utils/utils.js";
 import forestMapImage from "../../../assets/images/maps/map.png";
 import gimpMap from "../../../assets/images/maps/worldmap-gimp.png";
 
+import forestLowerMapImage from "../../../assets/images/maps/forest-map-lower.png";
+import forestUpperMapImage from "../../../assets/images/maps/forest-map-upper.png";
+
 import heroImage from "../../../assets/images/sprites/dog.jpg";
 import boarImg from "../../../assets/images/sprites/wildboar.png";
 import dogBandanaImg from "../../../assets/images/sprites/dogs_bandana.png";
 import truffleImg from "../../../assets/images/sprites/truffle.png";
 
 const demoForest = {
-  map: {
-    imgSrc: gimpMap,
+  lowerMap: {
+    imgSrc: forestLowerMapImage,
+  },
+  upperMap: {
+    imgSrc: forestUpperMapImage,
   },
 
   hero: {

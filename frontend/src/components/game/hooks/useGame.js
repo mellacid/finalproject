@@ -5,8 +5,14 @@ import { startBehavior, checkInteraction } from "../utils/events.js";
 
 import truffleImg from "../../../assets/images/sprites/truffle.png";
 
-const useGame = (initialMap, initialGameObjects, initialHero) => {
-  const [map, setMap] = useState(initialMap);
+const useGame = (
+  initialLowerMap,
+  initialUpperMap,
+  initialGameObjects,
+  initialHero
+) => {
+  const [lowerMap, setLowerMap] = useState(initialLowerMap);
+  const [upperMap, setUpperMap] = useState(initialUpperMap);
   const [gameObjects, setGameObjects] = useState(initialGameObjects);
   const [hero, setHero] = useState(initialHero);
   const [key, setKey] = useState("");
@@ -85,7 +91,8 @@ const useGame = (initialMap, initialGameObjects, initialHero) => {
   }, [currentDirection]);
 
   return {
-    map,
+    lowerMap,
+    upperMap,
     gameObjects,
     hero,
     key,

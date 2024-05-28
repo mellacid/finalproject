@@ -1,7 +1,5 @@
-import { useState, useEffect, useCallback } from "react";
-import { withGrid, nextPosition, walk, loadImages } from "../utils/utils.js";
-import { animations, updateAnimation } from "../utils/animations.js";
-import { startBehavior, checkInteraction } from "../utils/events.js";
+import { useState, useEffect } from "react";
+import { withGrid } from "../utils/utils.js";
 
 import truffleImg from "../../../assets/images/sprites/truffle.png";
 

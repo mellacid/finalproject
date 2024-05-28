@@ -4,17 +4,9 @@ import React, { useState, useRef, useEffect, useCallback } from "react";
 
 import useGame from "./hooks/useGame.js";
 
-import {
-  withGrid,
-  asGridCoord,
-  nextPosition,
-  walk,
-  loadImages,
-} from "./utils/utils.js";
+import { withGrid, nextPosition, walk, loadImages } from "./utils/utils.js";
 import { animations, updateAnimation } from "./utils/animations.js";
 import { startBehavior, checkInteraction } from "./utils/events.js";
-
-import truffleImg from "../../assets/images/sprites/truffle.png";
 
 import demoForest from "./maps/demoForest.js";
 
@@ -29,7 +21,6 @@ const Game = () => {
     gameObjects,
     hero,
     key,
-    currentDirection,
     isEnterPressed,
     setIsEnterPressed,
     showTextMessage,
@@ -38,9 +29,7 @@ const Game = () => {
     setCurrentTextMessage,
     truffle,
     setTruffle,
-    addGameObject,
     showItemContainer,
-    setShowItemContainer,
     itemContainer,
     setItemContainer,
   } = useGame(level.lowerMap, level.upperMap, level.gameObjects, level.hero);
@@ -139,7 +128,13 @@ const Game = () => {
 
     const cameraPerson = hero.position;
 
-    console.log("hero: ", hero);
+    console.log(
+      "hero.position:",
+      "x: ",
+      hero.position.x / 24,
+      "y: ",
+      hero.position.y / 24
+    );
 
     const imageSources = [
       lowerMap.imgSrc,

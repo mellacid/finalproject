@@ -71,3 +71,20 @@ export function faceHero(object, heroDirection) {
     object.animation = "idle-left";
   }
 }
+
+export const loadImages = (sources) => {
+  const images = {};
+  let loadedImages = 0;
+  const numImages = sources.length;
+  return new Promise((resolve) => {
+    sources.forEach((source) => {
+      images[source] = new Image();
+      images[source].src = source;
+      images[source].onload = () => {
+        if (++loadedImages >= numImages) {
+          resolve(images);
+        }
+      };
+    });
+  });
+};

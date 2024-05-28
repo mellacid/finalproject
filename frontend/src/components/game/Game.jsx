@@ -2,7 +2,13 @@ import "../../styles/game.css";
 
 import React, { useState, useRef, useEffect, useCallback } from "react";
 
-import { withGrid, asGridCoord, nextPosition, walk } from "./utils/utils.js";
+import {
+  withGrid,
+  asGridCoord,
+  nextPosition,
+  walk,
+  loadImages,
+} from "./utils/utils.js";
 import { animations, updateAnimation } from "./utils/animations.js";
 import { startBehavior, checkInteraction } from "./utils/events.js";
 
@@ -29,23 +35,6 @@ const Game = () => {
   }
 
   const [truffle, setTruffle] = useState(false);
-
-  const loadImages = (sources) => {
-    const images = {};
-    let loadedImages = 0;
-    const numImages = sources.length;
-    return new Promise((resolve) => {
-      sources.forEach((source) => {
-        images[source] = new Image();
-        images[source].src = source;
-        images[source].onload = () => {
-          if (++loadedImages >= numImages) {
-            resolve(images);
-          }
-        };
-      });
-    });
-  };
 
   const drawMap = useCallback(
     (ctx, cameraPerson, images) => {

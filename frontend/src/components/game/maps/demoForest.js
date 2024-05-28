@@ -89,6 +89,11 @@ const demoForest = {
       animation: "idle-down",
       animationFrame: 0,
       position: { x: withGrid(0), y: withGrid(0) },
+      item: true,
+      event: [
+        { type: "textMessage", text: "Du hast den Trüffel gefunden!" },
+        { type: "takeItem", position: { x: withGrid(0), y: withGrid(0) } },
+      ],
     },
   },
   walls: [

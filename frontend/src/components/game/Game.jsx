@@ -26,7 +26,7 @@ const Game = () => {
     return walls.some((wall) => wall.x === coord.x && wall.y === coord.y);
   }
 
-  const [truffle, setTruffle] = useState(true);
+  const [truffle, setTruffle] = useState(false);
 
   const loadImages = (sources) => {
     const images = {};
@@ -205,6 +205,7 @@ const Game = () => {
           position: { x: withGrid(9), y: withGrid(23) },
           animation: "idle-down",
           animationFrame: 0,
+          item: true,
         },
       };
     });

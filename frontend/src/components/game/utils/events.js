@@ -51,6 +51,10 @@ export const checkInteraction = (
 
   Object.values(gameObjects).forEach((object) => {
     if (object.position.x === x && object.position.y === y) {
+      if (object.item) {
+        pickupItem(object, setTruffle);
+      }
+
       if (object.talking) {
         faceHero(object, heroDirection);
 
@@ -118,4 +122,9 @@ export const triggerEvent = (
 
     object.currentEventIndex = index + 1;
   }
+};
+
+export const pickupItem = (object, setTruffle) => {
+  setTruffle(true);
+  object.position = { x: 0, y: 0 };
 };

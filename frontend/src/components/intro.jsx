@@ -8,10 +8,18 @@ function IntroPage() {
       <img src={introImage} alt="" />
       {/*<h1>TOPRAK</h1>*/}
       {/*<h4>LOST PAWS</h4>*/}
-      <Link to="/story">
+
+      <Link className="underline" to="/story">
         <button>Play</button>
       </Link>
-      <button>Options</button>
+
+      <Link className="underline" to="/options">
+        <button>Options</button>
+        </Link>
+
+      <Link className="underline" to="/connect">
+        <button>Connect</button>
+        </Link>
     </div>
   );
 }

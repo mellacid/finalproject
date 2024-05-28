@@ -39,6 +39,8 @@ function App() {
         <Route path="/" element={<Intro />} />
         <Route path="/story" element={<Story />} />
         <Route path="/game" element={<GameSlide />} />
+        <Route path="/options" element={<Options />} />
+        <Route path="/connect" element={<div>Connect</div>} />
       </Routes>
 
       {/* <div>

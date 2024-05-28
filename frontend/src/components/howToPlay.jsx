@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 
 function HowToPlay({ onConfirmation }) {
   React.useEffect(() => {
-    onConfirmation('howToPlay'); // Passa il nome della slide corrente
+    onConfirmation('howToPlay'); 
   }, [onConfirmation]);
 
   return (

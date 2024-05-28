@@ -42,7 +42,7 @@ body {
 }
 
 .app-container {
-  max-width: 1200px;
+  max-width: 850px;
   margin: 0 auto;
   padding: 50px;
   background-color: rgba(0, 0, 0, 0.45);

@@ -18,6 +18,8 @@ import truffleImg from "../../assets/images/sprites/truffle.png";
 
 import demoForest from "./maps/demoForest.js";
 
+import { ItemContainer } from "./utils/ItemContainer.jsx";
+
 const Game = () => {
   const {
     map,
@@ -34,6 +36,10 @@ const Game = () => {
     truffle,
     setTruffle,
     addGameObject,
+    showItemContainer,
+    setShowItemContainer,
+    itemContainer,
+    setItemContainer,
   } = useGame(demoForest.map, demoForest.gameObjects, demoForest.hero);
 
   const canvasRef = useRef(null);
@@ -167,7 +173,8 @@ const Game = () => {
             setShowTextMessage,
             setCurrentTextMessage,
             truffle,
-            setTruffle
+            setTruffle,
+            setItemContainer
           );
           setIsEnterPressed(false);
         }
@@ -197,6 +204,12 @@ const Game = () => {
   return (
     <div className="game-container">
       <canvas ref={canvasRef} width="528" height="297"></canvas>
+      {showItemContainer && (
+        <ItemContainer
+          itemContainer={itemContainer}
+          gameObjects={gameObjects}
+        />
+      )}
       {showTextMessage && (
         <div className="TextMessage">{currentTextMessage}</div>
       )}

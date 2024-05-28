@@ -61,7 +61,8 @@ export const checkInteraction = (
   setShowTextMessage,
   setCurrentTextMessage,
   truffle,
-  setTruffle
+  setTruffle,
+  setItemContainer
 ) => {
   const x = nextPosition.x;
   const y = nextPosition.y;
@@ -69,13 +70,14 @@ export const checkInteraction = (
   Object.values(gameObjects).forEach((object) => {
     if (object.position.x === x && object.position.y === y) {
       if (object.item) {
-        pickupItem(object, setTruffle);
+        pickupItem(object, setTruffle, setItemContainer);
       }
 
       if (object.talking) {
         faceHero(object, heroDirection);
 
         if (object.id === "npc1" && truffle) {
+          setItemContainer([]);
           triggerEvent(object, setCurrentTextMessage, setShowTextMessage);
           return;
         }
@@ -141,7 +143,10 @@ export const triggerEvent = (
   }
 };
 
-export const pickupItem = (object, setTruffle) => {
+export const pickupItem = (object, setTruffle, setItemContainer) => {
   setTruffle(true);
+  setItemContainer((prev) => {
+    return [...prev, object.id];
+  });
   object.position = { x: withGrid(-100), y: withGrid(-100) };
 };

@@ -16,6 +16,9 @@ const useGame = (initialMap, initialGameObjects, initialHero) => {
   const [currentTextMessage, setCurrentTextMessage] = useState("Test Message");
   const [truffle, setTruffle] = useState(false);
 
+  const [showItemContainer, setShowItemContainer] = useState(true);
+  const [itemContainer, setItemContainer] = useState([]);
+
   const addGameObject = () => {
     setGameObjects((prev) => {
       return {
@@ -96,6 +99,10 @@ const useGame = (initialMap, initialGameObjects, initialHero) => {
     truffle,
     setTruffle,
     addGameObject,
+    showItemContainer,
+    setShowItemContainer,
+    itemContainer,
+    setItemContainer,
   };
 };
 

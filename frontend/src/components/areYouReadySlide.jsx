@@ -4,8 +4,7 @@
 function areYouReady() {
   return (
     <div>
-      {/* Contenuto della slide "AreYouReady" */}
-      <h1>ARE YOU READY?</h1>
+      <h1 className="areYouReady">ARE YOU READY?</h1>
     </div>
   );
 }

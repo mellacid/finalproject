@@ -2,6 +2,8 @@ import "../../styles/game.css";
 
 import React, { useState, useRef, useEffect, useCallback } from "react";
 
+import useGame from "./hooks/useGame.js";
+
 import {
   withGrid,
   asGridCoord,
@@ -17,24 +19,30 @@ import truffleImg from "../../assets/images/sprites/truffle.png";
 import demoForest from "./maps/demoForest.js";
 
 const Game = () => {
+  const {
+    map,
+    gameObjects,
+    hero,
+    key,
+    currentDirection,
+    isEnterPressed,
+    setIsEnterPressed,
+    showTextMessage,
+    setShowTextMessage,
+    currentTextMessage,
+    setCurrentTextMessage,
+    truffle,
+    setTruffle,
+    addGameObject,
+  } = useGame(demoForest.map, demoForest.gameObjects, demoForest.hero);
+
   const canvasRef = useRef(null);
 
-  const [key, setKey] = useState("");
-  const [currentDirection, setCurrentDirection] = useState(null);
-  const [isEnterPressed, setIsEnterPressed] = useState(false);
-
-  const [map, setMap] = useState(demoForest.map);
-  const [gameObjects, setGameObjects] = useState(demoForest.gameObjects);
-  const [hero, setHero] = useState(demoForest.hero);
-  const [showTextMessage, setShowTextMessage] = useState(false);
-  const [currentTextMessage, setCurrentTextMessage] = useState("Test Message");
   const [staticWalls, setStaticWalls] = useState(demoForest.walls);
   let walls = [...staticWalls];
   function isWall(coord) {
     return walls.some((wall) => wall.x === coord.x && wall.y === coord.y);
   }
-
-  const [truffle, setTruffle] = useState(false);
 
   const drawMap = useCallback(
     (ctx, cameraPerson, images) => {
@@ -185,71 +193,6 @@ const Game = () => {
     gameObjects,
     showTextMessage,
   ]);
-
-  const addGameObject = () => {
-    setGameObjects((prev) => {
-      return {
-        ...prev,
-        truffle: {
-          id: "truffle",
-          imgSrc: truffleImg,
-          position: { x: withGrid(9), y: withGrid(23) },
-          animation: "item",
-          animationFrame: 0,
-          item: true,
-        },
-      };
-    });
-  };
-
-  const directionInput = (e) => {
-    if (currentDirection) return;
-
-    if (
-      e.key === "ArrowUp" ||
-      e.key === "ArrowDown" ||
-      e.key === "ArrowLeft" ||
-      e.key === "ArrowRight"
-    ) {
-      hero.isWalking = true;
-      setCurrentDirection(e.key);
-    } else {
-      hero.isWalking = false;
-    }
-
-    if (e.key === "ArrowUp") {
-      setKey("up");
-    } else if (e.key === "ArrowDown") {
-      setKey("down");
-    } else if (e.key === "ArrowLeft") {
-      setKey("left");
-    } else if (e.key === "ArrowRight") {
-      setKey("right");
-    } else if (e.key === "Enter") {
-      setIsEnterPressed(true);
-    } else if (e.key === "p") {
-      console.log("p pressed");
-      addGameObject();
-    }
-  };
-
-  useEffect(() => {
-    const handleKeyUp = (e) => {
-      if (e.key === currentDirection) {
-        setCurrentDirection(null);
-        setKey("");
-        hero.isWalking = false;
-      }
-    };
-
-    window.addEventListener("keydown", directionInput);
-    window.addEventListener("keyup", handleKeyUp);
-
-    return () => {
-      window.removeEventListener("keydown", directionInput);
-      window.removeEventListener("keyup", handleKeyUp);
-    };
-  }, [currentDirection]);
 
   return (
     <div className="game-container">

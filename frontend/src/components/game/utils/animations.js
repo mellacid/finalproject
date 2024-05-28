@@ -47,6 +47,7 @@ export const animations = {
     [0, 2],
     [2, 2],
   ],
+  item: [[0, 0]],
 };
 
 export function updateAnimation(who) {

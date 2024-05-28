@@ -6,7 +6,7 @@ import { withGrid, asGridCoord, nextPosition, walk } from "./utils/utils.js";
 import { animations, updateAnimation } from "./utils/animations.js";
 import { startBehavior, checkInteraction } from "./utils/events.js";
 
-import truffleImg from "../../assets/images/sprites/dog.jpg";
+import truffleImg from "../../assets/images/sprites/truffle.png";
 
 import demoForest from "./maps/demoForest.js";
 
@@ -203,7 +203,7 @@ const Game = () => {
           id: "truffle",
           imgSrc: truffleImg,
           position: { x: withGrid(9), y: withGrid(23) },
-          animation: "idle-down",
+          animation: "item",
           animationFrame: 0,
           item: true,
         },

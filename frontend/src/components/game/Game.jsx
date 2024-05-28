@@ -12,7 +12,9 @@ import demoForest from "./maps/demoForest.js";
 
 const Game = () => {
   const canvasRef = useRef(null);
+
   const [key, setKey] = useState("");
+  const [currentDirection, setCurrentDirection] = useState(null);
   const [isEnterPressed, setIsEnterPressed] = useState(false);
 
   const [map, setMap] = useState(demoForest.map);
@@ -212,6 +214,8 @@ const Game = () => {
   };
 
   const directionInput = (e) => {
+    if (currentDirection) return;
+
     if (
       e.key === "ArrowUp" ||
       e.key === "ArrowDown" ||
@@ -219,6 +223,7 @@ const Game = () => {
       e.key === "ArrowRight"
     ) {
       hero.isWalking = true;
+      setCurrentDirection(e.key);
     } else {
       hero.isWalking = false;
     }
@@ -240,9 +245,12 @@ const Game = () => {
   };
 
   useEffect(() => {
-    const handleKeyUp = () => {
-      setKey("");
-      hero.isWalking = false;
+    const handleKeyUp = (e) => {
+      if (e.key === currentDirection) {
+        setCurrentDirection(null);
+        setKey("");
+        hero.isWalking = false;
+      }
     };
 
     window.addEventListener("keydown", directionInput);
@@ -252,7 +260,7 @@ const Game = () => {
       window.removeEventListener("keydown", directionInput);
       window.removeEventListener("keyup", handleKeyUp);
     };
-  }, []);
+  }, [currentDirection]);
 
   return (
     <div className="game-container">

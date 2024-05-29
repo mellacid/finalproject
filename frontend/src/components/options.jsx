@@ -1,4 +1,3 @@
-
 //Options.jsx
 
 /*import PropTypes from 'prop-types';
@@ -26,19 +25,18 @@ Options.propTypes = {
 
 export default Options;*/
 
-
-import PropTypes from 'prop-types';
-import { useNavigate } from 'react-router-dom';
-import { useLanguageContext } from '../context/LanguageContext';
-import { getTranslation } from '../translations/translations';
+import PropTypes from "prop-types";
+import { useNavigate } from "react-router-dom";
+import { useLanguageContext } from "../context/LanguageContext";
+import { getTranslation } from "../translations/translations";
 
 function Options() {
   const navigate = useNavigate();
-  const { language, setLanguage} = useLanguageContext();
+  const { language, setLanguage } = useLanguageContext();
   const t = getTranslation(language);
 
   const handleReturn = () => {
-    navigate('/'); 
+    navigate("/");
   };
 
   return (
@@ -49,8 +47,11 @@ function Options() {
 
       <div>
         <h2>{t.language}</h2>
-        <button onClick={() => setLanguage('en')}>English</button>
-        <button onClick={() => setLanguage('de')}>Deutsch</button>
+        <button onClick={() => setLanguage("en")}>English</button>
+        <button onClick={() => setLanguage("de")}>Deutsch</button>
+        <button onClick={() => setLanguage("it")}>Italiano</button>
+        <button onClick={() => setLanguage("pl")}>Polski</button>
+        <button onClick={() => setLanguage("tr")}>Türkçe</button>
       </div>
     </div>
   );
@@ -61,4 +62,3 @@ function Options() {
 };*/
 
 export default Options;
-

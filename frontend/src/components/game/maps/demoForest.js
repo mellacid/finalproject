@@ -4,6 +4,7 @@ import forestLowerMapImage from "../../../assets/images/maps/forest-map-lower.pn
 import forestUpperMapImage from "../../../assets/images/maps/forest-map-upper.png";
 
 import boarImg from "../../../assets/images/sprites/wildboar.png";
+import catImg from "../../../assets/images/sprites/cat.png";
 import dogBandanaImg from "../../../assets/images/sprites/dogs_bandana.png";
 import truffleImg from "../../../assets/images/sprites/truffle.png";
 
@@ -24,7 +25,7 @@ const demoForest = {
     animationFrameLimit: 24,
     animationFrameProgress: 24,
     isWalking: false,
-    position: { x: withGrid(9), y: withGrid(10) },
+    position: { x: withGrid(38), y: withGrid(30) },
   },
   gameObjects: {
     npc1: {
@@ -35,7 +36,7 @@ const demoForest = {
       animationFrameLimit: 24,
       animationFrameProgress: 24,
       isWalking: false,
-      position: { x: withGrid(9), y: withGrid(4) },
+      position: { x: withGrid(35), y: withGrid(63) },
       behaviorLoop: [
         { type: "stand", direction: "left", time: 2000 },
         { type: "stand", direction: "down", time: 2000 },
@@ -57,9 +58,19 @@ const demoForest = {
         { type: "textMessage", text: "Danke für den Trüffel!" },
         { type: "textMessage", text: "Ich bin satt!" },
         { type: "textMessage", text: "Ich gehe jetzt schlafen!" },
-        { type: "walk", direction: "up", time: 1000 },
-        { type: "walk", direction: "up", time: 1000 },
-        { type: "walk", direction: "left", time: 1000 },
+        { type: "walk", direction: "down", time: 1000 },
+        { type: "walk", direction: "down", time: 1000 },
+        { type: "walk", direction: "down", time: 1000 },
+        { type: "walk", direction: "right", time: 1000 },
+        { type: "walk", direction: "down", time: 1000 },
+        { type: "walk", direction: "right", time: 1000 },
+        { type: "walk", direction: "down", time: 1000 },
+        { type: "walk", direction: "right", time: 1000 },
+        { type: "walk", direction: "right", time: 1000 },
+        { type: "walk", direction: "right", time: 1000 },
+        { type: "walk", direction: "right", time: 1000 },
+        { type: "walk", direction: "right", time: 1000 },
+        { type: "walk", direction: "right", time: 1000 },
       ],
       currentTalkingIndex: 0,
       currentBehaviorIndex: 0,
@@ -67,22 +78,64 @@ const demoForest = {
       behaviorTimeout: null,
     },
     npc2: {
-      imgSrc: dogBandanaImg,
-      isStanding: false,
+      id: "npc2",
+      imgSrc: catImg,
+      animation: "idle-down",
+      animationFrame: 0,
+      animationFrameLimit: 24,
+      animationFrameProgress: 24,
+      isWalking: false,
+      position: { x: withGrid(38), y: withGrid(22) },
+      behaviorLoop: [
+        { type: "stand", direction: "left", time: 2000 },
+        { type: "stand", direction: "down", time: 2000 },
+        { type: "stand", direction: "right", time: 2000 },
+        { type: "stand", direction: "down", time: 2000 },
+      ],
+      talking: [
+        {
+          type: "textMessage",
+          text: "Hallo, du suchst dein Frauchen?",
+          faceHero: "npc2",
+        },
+        {
+          type: "textMessage",
+          text: "Folge dem Pfad! *Miau*",
+        },
+      ],
+      currentTalkingIndex: 0,
+      currentBehaviorIndex: 0,
+      behaviorTimeout: null,
+    },
+    npc3: {
+      id: "npc3",
+      imgSrc: catImg,
       animation: "idle-up",
       animationFrame: 0,
       animationFrameLimit: 24,
       animationFrameProgress: 24,
       isWalking: false,
-      position: { x: withGrid(9), y: withGrid(17) },
+      position: { x: withGrid(10), y: withGrid(63) },
       behaviorLoop: [
-        { type: "walk", direction: "up", time: 1000 },
-        { type: "walk", direction: "up", time: 1000 },
-        { type: "walk", direction: "down", time: 1000 },
-        { type: "walk", direction: "down", time: 1000 },
+        { type: "stand", direction: "left", time: 2000 },
+        { type: "stand", direction: "up", time: 2000 },
+        { type: "stand", direction: "left", time: 2000 },
+        { type: "stand", direction: "down", time: 2000 },
       ],
-
+      talking: [
+        {
+          type: "textMessage",
+          text: "Du willst zu deinem Frauchen?",
+          faceHero: "npc3",
+        },
+        {
+          type: "textMessage",
+          text: "Dazu musst du am Wildschwei vorbei! *Miau*",
+        },
+      ],
+      currentTalkingIndex: 0,
       currentBehaviorIndex: 0,
+      currentEventIndex: 0,
       behaviorTimeout: null,
     },
     truffle: {

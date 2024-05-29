@@ -26,7 +26,7 @@ const useGame = (
       ...prev,
       truffle: {
         ...prev.truffle,
-        position: { x: withGrid(9), y: withGrid(21) },
+        position: { x: withGrid(24), y: withGrid(55) },
       },
     }));
   };

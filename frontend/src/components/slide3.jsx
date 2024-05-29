@@ -1,7 +1,7 @@
 // Slide3.jsx
 
 
-import slide3image from '../assets/toprak3.jpeg';
+import slide3image from '../assets/toprak3.png';
 
 function Slide3() {
   return (

@@ -1,4 +1,4 @@
-import React from "react";
+
 import { useState, useEffect, useCallback } from "react";
 
 import HowToPlay from "../components/howToPlay.jsx";
@@ -8,6 +8,7 @@ import Slide2 from "../components/slide2.jsx";
 import Slide3 from "../components/slide3.jsx";
 import Slide4 from "../components/slide4.jsx";
 import SlideIndicator from "../components/slideIndicator.jsx";
+import Options from "../components/options.jsx";
 
 const Story = () => {
   const [currentSlide, setCurrentSlide] = useState("howToPlay");

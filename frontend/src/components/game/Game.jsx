@@ -2,7 +2,7 @@ import "../../styles/game.css";
 
 import React, { useState, useRef, useEffect, useCallback } from "react";
 
-import useGame from "./hooks/useGame.js";
+import useGame from "./hooks/useGame.jsx";
 import { withGrid, nextPosition, walk, loadImages } from "./utils/utils.js";
 import { animations, updateAnimation } from "./utils/animations.js";
 import { startBehavior, checkInteraction } from "./utils/events.js";
@@ -11,7 +11,11 @@ import { ItemContainer } from "./utils/ItemContainer.jsx";
 
 import demoForest from "./maps/demoForest.js";
 
+import { useLanguageContext } from "../../context/LanguageContext.jsx";
+
 const Game = () => {
+  const { language } = useLanguageContext();
+
   const level = demoForest;
 
   const {
@@ -184,7 +188,8 @@ const Game = () => {
             setCurrentTextMessage,
             truffle,
             setTruffle,
-            setItemContainer
+            setItemContainer,
+            language
           );
           setIsEnterPressed(false);
         }

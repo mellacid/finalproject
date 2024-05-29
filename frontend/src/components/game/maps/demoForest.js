@@ -46,7 +46,10 @@ const demoForest = {
       talking: [
         {
           type: "textMessage",
-          text: "Hallo, ich bin Giaco das Wildschwein!",
+          text: {
+            de: "Hallo, ich bin Giaco das Wildschwein!",
+            en: "Hello, I am Giaco the wild boar!",
+          },
           faceHero: "npc1",
         },
         {

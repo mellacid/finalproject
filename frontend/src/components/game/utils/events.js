@@ -62,7 +62,8 @@ export const checkInteraction = (
   setCurrentTextMessage,
   truffle,
   setTruffle,
-  setItemContainer
+  setItemContainer,
+  language
 ) => {
   const x = nextPosition.x;
   const y = nextPosition.y;
@@ -78,12 +79,17 @@ export const checkInteraction = (
 
         if (object.id === "npc1" && truffle) {
           setItemContainer([]);
-          triggerEvent(object, setCurrentTextMessage, setShowTextMessage);
+          triggerEvent(
+            object,
+            setCurrentTextMessage,
+            setShowTextMessage,
+            language
+          );
           return;
         }
 
         const index = object.currentTalkingIndex;
-        const currentText = object.talking[index];
+        const currentText = object.talking[index][language];
         if (index < object.talking.length) {
           setCurrentTextMessage(currentText.text);
 
@@ -104,7 +110,8 @@ export const checkInteraction = (
 export const triggerEvent = (
   object,
   setCurrentTextMessage,
-  setShowTextMessage
+  setShowTextMessage,
+  language
 ) => {
   const index = object.currentEventIndex;
   const eventLength = object.event.length;
@@ -115,7 +122,7 @@ export const triggerEvent = (
   const type = event.type;
 
   if (type === "textMessage") {
-    const text = event.text;
+    const text = event.text[language];
     setCurrentTextMessage(text);
     setShowTextMessage(true);
     object.currentEventIndex = index + 1;

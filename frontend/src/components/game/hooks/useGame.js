@@ -1,8 +1,6 @@
 import { useState, useEffect } from "react";
 import { withGrid } from "../utils/utils.js";
 
-import truffleImg from "../../../assets/images/sprites/truffle.png";
-
 const useGame = (
   initialLowerMap,
   initialUpperMap,
@@ -23,7 +21,7 @@ const useGame = (
   const [showItemContainer, setShowItemContainer] = useState(true);
   const [itemContainer, setItemContainer] = useState([]);
 
-  const addGameObject = () => {
+  const addTruffleObject = () => {
     setGameObjects((prev) => ({
       ...prev,
       truffle: {
@@ -60,7 +58,7 @@ const useGame = (
       setIsEnterPressed(true);
     } else if (e.key === "p") {
       console.log("p pressed");
-      addGameObject();
+      addTruffleObject();
     }
   };
 
@@ -97,7 +95,7 @@ const useGame = (
     setCurrentTextMessage,
     truffle,
     setTruffle,
-    addGameObject,
+    addTruffleObject,
     showItemContainer,
     setShowItemContainer,
     itemContainer,

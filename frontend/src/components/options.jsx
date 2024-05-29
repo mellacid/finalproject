@@ -11,7 +11,7 @@ function Options({ onReturn }) {
       {/* Contenuto della slide "Options" */}
       <h1>Options</h1>
       <p>Options here...</p>
-      <button onClick={onReturn}>Return to intro</button> {/* Utilizza la prop onReturn */}
+      <button onClick={onReturn}>Return to intro</button> 
     </div>
   );
 }

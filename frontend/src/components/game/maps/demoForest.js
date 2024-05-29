@@ -54,13 +54,22 @@ const demoForest = {
         },
         {
           type: "textMessage",
-          text: "Ich will Trüffel! *Grunz*",
+          text: {
+            de: "Ich will Trüffel! *Grunz*",
+            en: "I want truffles! *Oink*",
+          },
         },
       ],
       event: [
-        { type: "textMessage", text: "Danke für den Trüffel!" },
-        { type: "textMessage", text: "Ich bin satt!" },
-        { type: "textMessage", text: "Ich gehe jetzt schlafen!" },
+        {
+          type: "textMessage",
+          text: { de: "Danke für den Trüffel!", en: "Thanks for the truffle!" },
+        },
+        { type: "textMessage", text: { de: "Ich bin satt!", en: "I'm full!" } },
+        {
+          type: "textMessage",
+          text: { de: "Ich gehe jetzt schlafen!", en: "I'm going to sleep!" },
+        },
         { type: "walk", direction: "down", time: 1000 },
         { type: "walk", direction: "down", time: 1000 },
         { type: "walk", direction: "down", time: 1000 },
@@ -98,12 +107,15 @@ const demoForest = {
       talking: [
         {
           type: "textMessage",
-          text: "Hallo, du suchst dein Frauchen?",
+          text: {
+            de: "Hallo, du suchst dein Frauchen?",
+            en: "Hello, are you looking for your owner?",
+          },
           faceHero: "npc2",
         },
         {
           type: "textMessage",
-          text: "Folge dem Pfad! *Miau*",
+          text: { de: "Folge dem Pfad! *Miau*", en: "Follow the path! *Meow*" },
         },
       ],
       currentTalkingIndex: 0,
@@ -128,12 +140,18 @@ const demoForest = {
       talking: [
         {
           type: "textMessage",
-          text: "Du willst zu deinem Frauchen?",
+          text: {
+            de: "Du willst zu deinem Frauchen?",
+            en: "You want to find your owner?",
+          },
           faceHero: "npc3",
         },
         {
           type: "textMessage",
-          text: "Dazu musst du am Wildschwei vorbei! *Miau*",
+          text: {
+            de: "Dazu musst du am Wildschwein vorbei! *Miau*",
+            en: "You have to pass the wild boar! *Meow*",
+          },
         },
       ],
       currentTalkingIndex: 0,
@@ -148,10 +166,6 @@ const demoForest = {
       animationFrame: 0,
       position: { x: withGrid(-100), y: withGrid(-100) },
       item: true,
-      event: [
-        { type: "textMessage", text: "Du hast den Trüffel gefunden!" },
-        { type: "takeItem", position: { x: withGrid(0), y: withGrid(0) } },
-      ],
     },
   },
   walls: [

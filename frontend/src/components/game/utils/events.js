@@ -65,6 +65,8 @@ export const checkInteraction = (
   setItemContainer,
   language
 ) => {
+  console.log("language (checkInt) :", language);
+
   const x = nextPosition.x;
   const y = nextPosition.y;
 
@@ -89,9 +91,9 @@ export const checkInteraction = (
         }
 
         const index = object.currentTalkingIndex;
-        const currentText = object.talking[index][language];
+        const currentText = object.talking[index];
         if (index < object.talking.length) {
-          setCurrentTextMessage(currentText.text);
+          setCurrentTextMessage(currentText.text[language]);
 
           if (!showTextMessage) {
             setShowTextMessage(true);

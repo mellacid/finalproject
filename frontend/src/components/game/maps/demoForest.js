@@ -49,6 +49,9 @@ const demoForest = {
           text: {
             de: "Hallo, ich bin Giaco das Wildschwein!",
             en: "Hello, I am Giaco the wild boar!",
+            it: "Ciao, sono Giaco il cinghiale!",
+            pl: "Cześć, jestem Giaco dzik!",
+            tr: "Merhaba, ben vahşi domuz Giaco!",
           },
           faceHero: "npc1",
         },
@@ -57,18 +60,42 @@ const demoForest = {
           text: {
             de: "Ich will Trüffel! *Grunz*",
             en: "I want truffles! *Oink*",
+            it: "Voglio tartufi! *Grugnito*",
+            pl: "Chcę trufle! *Chrum*",
+            tr: "Ben trüf istiyorum! *Hırıltı*",
           },
         },
       ],
       event: [
         {
           type: "textMessage",
-          text: { de: "Danke für den Trüffel!", en: "Thanks for the truffle!" },
+          text: {
+            de: "Danke für den Trüffel!",
+            en: "Thanks for the truffle!",
+            it: "Grazie per il tartufo!",
+            pl: "Dzięki za truflę!",
+            tr: "Trüf için teşekkürler!",
+          },
         },
-        { type: "textMessage", text: { de: "Ich bin satt!", en: "I'm full!" } },
         {
           type: "textMessage",
-          text: { de: "Ich gehe jetzt schlafen!", en: "I'm going to sleep!" },
+          text: {
+            de: "Ich bin satt!",
+            en: "I'm full!",
+            it: "Sono sazio!",
+            pl: "Jestem najedzony!",
+            tr: "Ben doydum!",
+          },
+        },
+        {
+          type: "textMessage",
+          text: {
+            de: "Ich gehe jetzt schlafen!",
+            en: "I'm going to sleep!",
+            it: "Vado a dormire!",
+            pl: "Idę spać!",
+            tr: "Şimdi uyuyacağım!",
+          },
         },
         { type: "walk", direction: "down", time: 1000 },
         { type: "walk", direction: "down", time: 1000 },
@@ -110,12 +137,21 @@ const demoForest = {
           text: {
             de: "Hallo, du suchst dein Frauchen?",
             en: "Hello, are you looking for your owner?",
+            it: "Ciao, stai cercando il tuo padrone?",
+            pl: "Cześć, szukasz właściciela?",
+            tr: "Merhaba, sahibini mi arıyorsun?",
           },
           faceHero: "npc2",
         },
         {
           type: "textMessage",
-          text: { de: "Folge dem Pfad! *Miau*", en: "Follow the path! *Meow*" },
+          text: {
+            de: "Folge dem Pfad! *Miau*",
+            en: "Follow the path! *Meow*",
+            it: "Segui il sentiero! *Miao*",
+            pl: "Podążaj ścieżką! *Miau*",
+            tr: "Yolu takip et! *Miyav*",
+          },
         },
       ],
       currentTalkingIndex: 0,
@@ -143,6 +179,9 @@ const demoForest = {
           text: {
             de: "Du willst zu deinem Frauchen?",
             en: "You want to find your owner?",
+            it: "Vuoi trovare il tuo padrone?",
+            pl: "Chcesz znaleźć swojego właściciela?",
+            tr: "Sahibini mi bulmak istiyorsun?",
           },
           faceHero: "npc3",
         },
@@ -151,6 +190,9 @@ const demoForest = {
           text: {
             de: "Dazu musst du am Wildschwein vorbei! *Miau*",
             en: "You have to pass the wild boar! *Meow*",
+            it: "Devi passare il cinghiale! *Miao*",
+            pl: "Musisz przejść obok dzika! *Miau*",
+            tr: "Vahşi domuzun yanından geçmelisin! *Miyav*",
           },
         },
       ],

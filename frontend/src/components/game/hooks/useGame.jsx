@@ -66,7 +66,7 @@ const useGame = (
   };
 
   useEffect(() => {
-    const socket = io("http://localhost:3002");
+    const socket = io("https://topraklostpaws.onrender.com");
 
     const handleKeyUp = (e) => {
       if (e.key === currentDirection) {

@@ -1,17 +1,21 @@
 
 //Options.jsx
 
-
-
 import PropTypes from 'prop-types';
+import { useNavigate } from 'react-router-dom'; // Importa useNavigate
 
-function Options({ onReturn }) {
+function Options() {
+  const navigate = useNavigate(); // Ottieni la funzione di navigazione
+
+  const handleReturn = () => {
+    navigate('/'); // Naviga alla pagina di introduzione quando il bottone viene premuto
+  };
+
   return (
     <div>
-      {/* Contenuto della slide "Options" */}
       <h1>Options</h1>
       <p>Options here...</p>
-      <button onClick={onReturn}>Return to intro</button> 
+      <button onClick={handleReturn}>Return to intro</button> 
     </div>
   );
 }
@@ -21,5 +25,3 @@ Options.propTypes = {
 };
 
 export default Options;
-
-

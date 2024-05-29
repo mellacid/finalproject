@@ -42,8 +42,8 @@ body {
 }
 
 .app-container {
-  max-width: 850px;
-  margin: 0 auto;
+  max-width: auto;
+  margin: auto;
   padding: 50px;
   background-color: rgba(0, 0, 0, 0.45);
   border-radius: 9px;
@@ -67,7 +67,9 @@ button {
   display: block;
   margin-left: auto;
   margin-right: auto;
-  width: 90%;
+  width: 60%;
+  text-decoration: none;
+  
   
 }
 
@@ -83,6 +85,7 @@ h1 {
 
 button:hover {
   background-color: #F6FFD2;
+  text-decoration: none;
 }
 
 

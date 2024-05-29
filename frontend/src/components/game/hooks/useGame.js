@@ -1,4 +1,7 @@
 import { useState, useEffect } from "react";
+
+import io from "socket.io-client";
+
 import { withGrid } from "../utils/utils.js";
 
 const useGame = (
@@ -63,6 +66,8 @@ const useGame = (
   };
 
   useEffect(() => {
+    const socket = io("http://localhost:3002");
+
     const handleKeyUp = (e) => {
       if (e.key === currentDirection) {
         setCurrentDirection(null);
@@ -71,10 +76,21 @@ const useGame = (
       }
     };
 
+    const handleChatMessage = (message) => {
+      const command = message.split(": ")[1];
+
+      if (command === "truffle") {
+        addTruffleObject();
+      }
+    };
+
+    socket.on("chatMessage", handleChatMessage);
+
     window.addEventListener("keydown", directionInput);
     window.addEventListener("keyup", handleKeyUp);
 
     return () => {
+      socket.off("chatMessage", handleChatMessage);
       window.removeEventListener("keydown", directionInput);
       window.removeEventListener("keyup", handleKeyUp);
     };

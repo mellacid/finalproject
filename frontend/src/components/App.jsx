@@ -28,8 +28,13 @@ function App() {
     const socket = io("http://localhost:3002");
     socket.on("showImage", handleImageChange);
 
+    socket.on("chatMessage", (message) => {
+      setChatMessages((prevMessages) => [...prevMessages, message]);
+    });
+
     return () => {
       socket.off("showImage", handleImageChange);
+      socket.off("chatMessage");
     };
   }, []);
 

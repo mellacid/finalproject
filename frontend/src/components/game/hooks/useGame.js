@@ -24,19 +24,13 @@ const useGame = (
   const [itemContainer, setItemContainer] = useState([]);
 
   const addGameObject = () => {
-    setGameObjects((prev) => {
-      return {
-        ...prev,
-        truffle: {
-          id: "truffle",
-          imgSrc: truffleImg,
-          position: { x: withGrid(9), y: withGrid(21) },
-          animation: "item",
-          animationFrame: 0,
-          item: true,
-        },
-      };
-    });
+    setGameObjects((prev) => ({
+      ...prev,
+      truffle: {
+        ...prev.truffle,
+        position: { x: withGrid(9), y: withGrid(21) },
+      },
+    }));
   };
 
   const directionInput = (e) => {

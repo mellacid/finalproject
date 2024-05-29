@@ -4,14 +4,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import howToPlay from '../assets/howToPlay.png';
+import {useLanguageContext} from '../context/LanguageContext.jsx';
+import { getTranslation } from "../translations/translations.jsx";
 
 
 function HowToPlay({ onConfirmation }) {
+  console.log('HowToPlay');
   React.useEffect(() => {
     onConfirmation('howToPlay');
   }, [onConfirmation]);
 
-  const text = "HOW TO PLAY";
+  console.log(useLanguageContext());
+  const { language } = useLanguageContext();
+  const t = getTranslation(language);
+  const text = t.howToPlay;
+  console.log(t);
   const words = text.split(' ');
 
   return (

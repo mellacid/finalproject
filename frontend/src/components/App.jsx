@@ -1,5 +1,5 @@
 //App.jsx
-import { useState, useEffect, useCallback } from "react";
+/*import { useState, useEffect, useCallback } from "react";
 import { Routes, Route } from "react-router-dom";
 
 import "../styles/index.css";
@@ -53,9 +53,39 @@ function App() {
         />
       )}
       {imagePath === "" && <p>No image selected.</p>}
-    </div> */}
+    </div> }
     </div>
   );
 }
 
+export default App;*/
+
+
+
+import { Routes, Route } from "react-router-dom";
+import "../styles/index.css";
+import "../styles/App.css";
+import IntroPage from "../components/intro.jsx";
+import Story from "../components/Story.jsx";
+import Options from "../components/options.jsx";
+import GameSlide from "../components/gameSlide.jsx";
+
+
+const App = () => {
+  return (
+   
+      <div className="app-container">
+        <Routes>
+          <Route path="/" element={<IntroPage />} />
+          <Route path="/story" element={<Story />} />
+          <Route path="/game" element={<GameSlide />} />
+          <Route path="/options" element={<Options />} />
+          <Route path="/connect" element={<div>Connect</div>} />
+        </Routes>
+      </div>
+   
+  );
+};
+
 export default App;
+

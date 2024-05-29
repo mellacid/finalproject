@@ -1,7 +1,7 @@
 
 //Options.jsx
 
-import PropTypes from 'prop-types';
+/*import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom'; // Importa useNavigate
 
 function Options() {
@@ -24,4 +24,41 @@ Options.propTypes = {
   onReturn: PropTypes.func.isRequired,
 };
 
+export default Options;*/
+
+
+import PropTypes from 'prop-types';
+import { useNavigate } from 'react-router-dom';
+import { useLanguageContext } from '../context/LanguageContext';
+import { getTranslation } from '../translations/translations';
+
+function Options() {
+  const navigate = useNavigate();
+  const { language, setLanguage} = useLanguageContext();
+  const t = getTranslation(language);
+
+  const handleReturn = () => {
+    navigate('/'); 
+  };
+
+  return (
+    <div>
+      <h1>{t.options}</h1>
+      <p>{t.options}</p>
+      <button onClick={handleReturn}>{t.return}</button>
+
+      <div>
+        <h2>{t.language}</h2>
+        <button onClick={() => setLanguage('en')}>English</button>
+        <button onClick={() => setLanguage('de')}>Deutsch</button>
+      </div>
+    </div>
+  );
+}
+
+/*Options.propTypes = {
+  onReturn: PropTypes.func.isRequired,
+};*/
+
 export default Options;
+

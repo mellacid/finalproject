@@ -2,48 +2,65 @@ import "../../styles/game.css";
 
 import React, { useState, useRef, useEffect, useCallback } from "react";
 
-import { withGrid, asGridCoord, nextPosition } from "./utils/utils.js";
+import useGame from "./hooks/useGame.jsx";
+import { withGrid, nextPosition, walk, loadImages } from "./utils/utils.js";
 import { animations, updateAnimation } from "./utils/animations.js";
 import { startBehavior, checkInteraction } from "./utils/events.js";
 
+import { ItemContainer } from "./utils/ItemContainer.jsx";
+
 import demoForest from "./maps/demoForest.js";
 
+import { useLanguageContext } from "../../context/LanguageContext.jsx";
+
 const Game = () => {
+  const { language } = useLanguageContext();
+
+  const level = demoForest;
+
+  const {
+    lowerMap,
+    upperMap,
+    gameObjects,
+    hero,
+    key,
+    isEnterPressed,
+    setIsEnterPressed,
+    showTextMessage,
+    setShowTextMessage,
+    currentTextMessage,
+    setCurrentTextMessage,
+    truffle,
+    setTruffle,
+    showItemContainer,
+    itemContainer,
+    setItemContainer,
+  } = useGame(level.lowerMap, level.upperMap, level.gameObjects, level.hero);
+
   const canvasRef = useRef(null);
-  const [key, setKey] = useState("");
 
-  const [map, setMap] = useState(demoForest.map);
-  const [gameObjects, setGameObjects] = useState(demoForest.gameObjects);
-  const [hero, setHero] = useState(demoForest.hero);
-  const [showTextMessage, setShowTextMessage] = useState(false);
-  const [currentTextMessage, setCurrentTextMessage] = useState("Test Message");
-  const [staticWalls, setStaticWalls] = useState(demoForest.walls);
+  const [staticWalls, setStaticWalls] = useState(level.walls);
   let walls = [...staticWalls];
+  function isWall(coord) {
+    return walls.some((wall) => wall.x === coord.x && wall.y === coord.y);
+  }
 
-  const loadImages = (sources) => {
-    const images = {};
-    let loadedImages = 0;
-    const numImages = sources.length;
-    return new Promise((resolve) => {
-      sources.forEach((source) => {
-        images[source] = new Image();
-        images[source].src = source;
-        images[source].onload = () => {
-          if (++loadedImages >= numImages) {
-            resolve(images);
-          }
-        };
-      });
-    });
-  };
-
-  const drawMap = useCallback(
+  const drawLowerMap = useCallback(
     (ctx, cameraPerson, images) => {
       const x = withGrid(10) - cameraPerson.x;
       const y = withGrid(6) - cameraPerson.y;
-      ctx.drawImage(images[map.imgSrc], x, y);
+      ctx.drawImage(images[lowerMap.imgSrc], x, y);
     },
-    [map.imgSrc]
+    [lowerMap.imgSrc]
+  );
+
+  const drawUpperMap = useCallback(
+    (ctx, cameraPerson, images) => {
+      const x = withGrid(10) - cameraPerson.x;
+      const y = withGrid(6) - cameraPerson.y;
+      ctx.drawImage(images[upperMap.imgSrc], x, y);
+    },
+    [upperMap.imgSrc]
   );
 
   const drawGameObjects = useCallback((ctx, cameraPerson, images) => {
@@ -87,9 +104,6 @@ const Game = () => {
     (ctx, cameraPerson, images) => {
       if (!hero) return;
 
-      console.log("hero.position.x:", hero.position.x);
-      console.log("hero.position.y:", hero.position.y);
-
       const frameX = animations[hero.animation][hero.animationFrame][0];
       const frameY = animations[hero.animation][hero.animationFrame][1];
 
@@ -117,8 +131,17 @@ const Game = () => {
 
     const cameraPerson = hero.position;
 
+    console.log(
+      "hero.position:",
+      "x: ",
+      hero.position.x / 24,
+      "y: ",
+      hero.position.y / 24
+    );
+
     const imageSources = [
-      map.imgSrc,
+      lowerMap.imgSrc,
+      upperMap.imgSrc,
       ...Object.values(gameObjects).map((obj) => obj.imgSrc),
       hero.imgSrc,
     ];
@@ -130,8 +153,8 @@ const Game = () => {
       const draw = () => {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        // draw map
-        drawMap(ctx, cameraPerson, images);
+        // draw lower map
+        drawLowerMap(ctx, cameraPerson, images);
 
         // draw game objects
         drawGameObjects(ctx, cameraPerson, images);
@@ -139,15 +162,18 @@ const Game = () => {
         // draw hero
         drawHero(ctx, cameraPerson, images);
 
+        // draw upper map
+        drawUpperMap(ctx, cameraPerson, images);
+
         updateAnimation(hero);
 
         if (hero.isWalking && hero.isPlayerControlled) {
-          walk(hero);
+          walk(hero, key, isWall);
         } else {
           hero.animation = `idle-${hero.direction}`;
         }
 
-        if (key === "enter") {
+        if (isEnterPressed) {
           const interactionCheck = nextPosition(
             Math.round(hero.position.x / 24) * 24,
             Math.round(hero.position.y / 24) * 24,
@@ -157,10 +183,15 @@ const Game = () => {
             interactionCheck,
             gameObjects,
             hero.direction,
+            showTextMessage,
             setShowTextMessage,
             setCurrentTextMessage,
-            hero.isPlayerControlled
+            truffle,
+            setTruffle,
+            setItemContainer,
+            language
           );
+          setIsEnterPressed(false);
         }
 
         animationFrameId = requestAnimationFrame(draw);
@@ -173,93 +204,29 @@ const Game = () => {
     return () => {
       cancelAnimationFrame(animationFrameId);
     };
-  }, [key, drawMap, drawGameObjects, drawHero, hero, map.imgSrc, gameObjects]);
-
-  function isWall(coord) {
-    return walls.some((wall) => wall.x === coord.x && wall.y === coord.y);
-  }
-
-  function walk(who) {
-    if (key === "up") {
-      who.animation = "walk-up";
-      who.direction = "up";
-    } else if (key === "down") {
-      who.animation = "walk-down";
-      who.direction = "down";
-    } else if (key === "left") {
-      who.animation = "walk-left";
-      who.direction = "left";
-    } else if (key === "right") {
-      who.animation = "walk-right";
-      who.direction = "right";
-    }
-
-    const nextCoord = nextPosition(
-      Math.round(who.position.x / 24) * 24,
-      Math.round(who.position.y / 24) * 24,
-      who.direction
-    );
-
-    if (isWall(nextCoord)) {
-      console.log("hier is ne Wall!!!");
-      return;
-    }
-
-    const step = 1;
-    if (key === "up") {
-      who.position.y -= step;
-    } else if (key === "down") {
-      who.position.y += step;
-    } else if (key === "left") {
-      who.position.x -= step;
-    } else if (key === "right") {
-      who.position.x += step;
-    }
-  }
-
-  const directionInput = (e) => {
-    if (
-      e.key === "ArrowUp" ||
-      e.key === "ArrowDown" ||
-      e.key === "ArrowLeft" ||
-      e.key === "ArrowRight"
-    ) {
-      hero.isWalking = true;
-    } else {
-      hero.isWalking = false;
-    }
-
-    if (e.key === "ArrowUp") {
-      setKey("up");
-    } else if (e.key === "ArrowDown") {
-      setKey("down");
-    } else if (e.key === "ArrowLeft") {
-      setKey("left");
-    } else if (e.key === "ArrowRight") {
-      setKey("right");
-    } else if (e.key === "Enter") {
-      setKey("enter");
-    }
-  };
-
-  useEffect(() => {
-    const handleKeyUp = () => {
-      setKey("");
-      hero.isWalking = false;
-    };
-
-    window.addEventListener("keydown", directionInput);
-    window.addEventListener("keyup", handleKeyUp);
-
-    return () => {
-      window.removeEventListener("keydown", directionInput);
-      window.removeEventListener("keyup", handleKeyUp);
-    };
-  }, []);
+  }, [
+    key,
+    isEnterPressed,
+    drawLowerMap,
+    drawUpperMap,
+    drawGameObjects,
+    drawHero,
+    hero,
+    lowerMap.imgSrc,
+    upperMap.imgSrc,
+    gameObjects,
+    showTextMessage,
+  ]);
 
   return (
     <div className="game-container">
       <canvas ref={canvasRef} width="528" height="297"></canvas>
+      {showItemContainer && (
+        <ItemContainer
+          itemContainer={itemContainer}
+          gameObjects={gameObjects}
+        />
+      )}
       {showTextMessage && (
         <div className="TextMessage">{currentTextMessage}</div>
       )}

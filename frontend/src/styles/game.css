@@ -29,7 +29,7 @@
   border: 2px solid #fff;
   background-color: #5d4a37;
 
-  transform: scale(2);
+  transform: scale(2.5);
 }
 
 .game-container canvas{
@@ -80,3 +80,26 @@
   bottom:0;
 
 }
+
+.item-container {
+  position: absolute;
+  right: 5px ;
+  top: 5px;
+  width: 40px;
+  height: 40px;
+  background: var(--menu-background);
+  border: 4px solid var(--menu-border-color);
+}
+
+.item {
+  position: relative;
+  width: 32px;
+  height: 32px;
+}
+
+.item img {
+  width: 100%;
+  overflow: hidden;
+}
+
+

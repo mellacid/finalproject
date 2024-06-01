@@ -8,6 +8,7 @@ const io = new Server(server, {
       "http://localhost:5173",
       "http://localhost:3002",
       "https://topraklostpaws.onrender.com",
+      "https://topraklostpaws.onrender.com/game",
     ],
     credentials: true,
   },

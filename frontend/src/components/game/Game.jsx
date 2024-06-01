@@ -173,6 +173,14 @@ const Game = () => {
           hero.animation = `idle-${hero.direction}`;
         }
 
+        console.log(
+          "hero.position:",
+          "x: ",
+          Math.round(hero.position.x / 24),
+          "y: ",
+          Math.round(hero.position.y / 24)
+        );
+
         if (isEnterPressed) {
           const interactionCheck = nextPosition(
             Math.round(hero.position.x / 24) * 24,

@@ -9,6 +9,7 @@ const io = new Server(server, {
       "http://localhost:3002",
       "https://topraklostpaws.onrender.com",
       "https://topraklostpaws.onrender.com/game",
+      "https://topraklostpaws-backend.onrender.com/socket.io/?EIO=4&transport=polling&t=O_JpDZv",
     ],
     credentials: true,
   },

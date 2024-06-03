@@ -25,7 +25,7 @@ function App() {
   };
 
   useEffect(() => {
-    const socket = io("https://topraklostpaws-backend.onrender.com", {
+    const socket = io("http://localhost:3002", {
       withCredentials: true,
       transports: ["websocket", "polling", "flashsocket"],
       extraHeaders: {

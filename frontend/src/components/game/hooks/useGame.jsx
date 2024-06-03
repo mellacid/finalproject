@@ -86,6 +86,10 @@ const useGame = (
       }
     };
 
+    socket.on("connect", () => {
+      console.log("Game connected to server");
+    });
+
     socket.on("chatMessage", handleChatMessage);
 
     window.addEventListener("keydown", directionInput);

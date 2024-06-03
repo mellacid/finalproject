@@ -68,6 +68,9 @@ const useGame = (
   useEffect(() => {
     const socket = io("https://topraklostpaws-backend.onrender.com", {
       withCredentials: true,
+      extraHeaders: {
+        "my-custom-header": "abcd",
+      },
     });
 
     const handleKeyUp = (e) => {

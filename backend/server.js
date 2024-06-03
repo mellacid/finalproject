@@ -3,29 +3,6 @@ const path = require("path");
 const server = http.createServer();
 const { Server } = require("socket.io");
 const cors = require("cors");
-const express = require("express");
-
-const app = express();
-
-const allowedOrigins = [
-  "http://localhost:5173",
-  "http://localhost:3002",
-  "https://topraklostpaws.onrender.com",
-];
-
-const corsOptions = {
-  origin: function (origin, callback) {
-    console.log("origin:", origin);
-    if (allowedOrigins.includes(origin) || !origin) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
-  credentials: true,
-};
-
-app.use(cors(corsOptions));
 
 const io = new Server(server, {
   cors: {
@@ -35,6 +12,7 @@ const io = new Server(server, {
       "https://topraklostpaws.onrender.com",
     ],
     methods: ["GET", "POST"],
+    allowedHeaders: ["my-custom-header"],
     credentials: true,
   },
 });

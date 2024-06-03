@@ -27,6 +27,9 @@ function App() {
   useEffect(() => {
     const socket = io("https://topraklostpaws-backend.onrender.com", {
       withCredentials: true,
+      extraHeaders: {
+        "my-custom-header": "abcd",
+      },
     });
     socket.on("showImage", handleImageChange);
 

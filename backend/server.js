@@ -11,6 +11,8 @@ const io = new Server(server, {
       "https://topraklostpaws.onrender.com/game",
       "https://topraklostpaws-backend.onrender.com/socket.io/?EIO=4&transport=polling&t=O_JpDZv",
     ],
+    methods: ["GET", "POST"],
+    allowedHeaders: ["my-custom-header"],
     credentials: true,
   },
 });

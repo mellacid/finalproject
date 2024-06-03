@@ -25,7 +25,9 @@ function App() {
   };
 
   useEffect(() => {
-    const socket = io("https://topraklostpaws-backend.onrender.com");
+    const socket = io("https://topraklostpaws-backend.onrender.com", {
+      withCredentials: true,
+    });
     socket.on("showImage", handleImageChange);
 
     socket.on("chatMessage", (message) => {

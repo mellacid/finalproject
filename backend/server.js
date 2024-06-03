@@ -3,6 +3,9 @@ const path = require("path");
 const server = http.createServer();
 const { Server } = require("socket.io");
 const cors = require("cors");
+const express = require("express");
+
+const app = express();
 
 const allowedOrigins = [
   "http://localhost:5173",

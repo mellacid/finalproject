@@ -68,7 +68,8 @@ const useGame = (
   useEffect(() => {
     const socket = io("https://topraklostpaws-backend.onrender.com", {
       withCredentials: true,
-      transports: ["websocket", "polling", "flashsocket"],
+      transports: ["websocket"],
+      // transports: ["websocket", "polling", "flashsocket"],
       extraHeaders: {
         "my-custom-header": "abcd",
       },

@@ -29,7 +29,7 @@
   border: 2px solid #fff;
   background-color: #5d4a37;
 
-  transform: scale(2.5);
+  transform: scale();
 }
 
 .game-container canvas{

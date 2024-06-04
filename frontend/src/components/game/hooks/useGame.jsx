@@ -66,7 +66,14 @@ const useGame = (
   };
 
   useEffect(() => {
-    const socket = io("http://localhost:3002");
+    const socket = io("http://localhost:3002", {
+      withCredentials: true,
+      transports: ["websocket"],
+      // transports: ["websocket", "polling", "flashsocket"],
+      extraHeaders: {
+        "my-custom-header": "abcd",
+      },
+    });
 
     const handleKeyUp = (e) => {
       if (e.key === currentDirection) {
@@ -83,6 +90,10 @@ const useGame = (
         addTruffleObject();
       }
     };
+
+    socket.on("connect", () => {
+      console.log("Game connected to server");
+    });
 
     socket.on("chatMessage", handleChatMessage);
 

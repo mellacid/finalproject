@@ -25,7 +25,13 @@ function App() {
   };
 
   useEffect(() => {
-    const socket = io("http://localhost:3002");
+    const socket = io("http://localhost:3002", {
+      withCredentials: true,
+      transports: ["websocket", "polling", "flashsocket"],
+      extraHeaders: {
+        "my-custom-header": "abcd",
+      },
+    });
     socket.on("showImage", handleImageChange);
 
     socket.on("chatMessage", (message) => {

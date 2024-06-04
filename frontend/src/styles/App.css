@@ -42,14 +42,22 @@ body {
 }
 
 .app-container {
-  max-width: auto;
+  min-width: 1000px;
+  min-height: 600px;
   margin: auto;
   padding: 50px;
   background-color: rgba(0, 0, 0, 0.45);
   border-radius: 9px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center ;
+  align-items: center;
   
 }
+
+
 
 button {
   background-color: #E2AD79;
@@ -75,10 +83,36 @@ button {
 
 
 
+#audio-button{
+  position: absolute;
+ 
+  background-color: rgba(0, 0, 0, 0);
+  top: 20px;
+  width: 100px;
+  color:#E2AD79 ;
+  font-size: 40px;
+  right: 20px;
+  outline: none;
+
+}
+
+
 
 h1 {
   font-size: 50px;
   margin-bottom: 10px;
+}
+
+.helpme-text{
+  font-size: 20px;
+  margin-bottom: 10px;
+  color: #E2AD79;
+  font-family: "Silkscreen", sans-serif; 
+  position: absolute;
+  top: 200px;
+  right: 340px;
+  width: 300px;
+
 }
 
 

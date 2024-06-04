@@ -40,9 +40,9 @@ function Options() {
   };
 
   return (
-    <div>
+    <div className="options-container">
       <h1>{t.options}</h1>
-      <p>{t.options}</p>
+     
       <button onClick={handleReturn}>{t.return}</button>
 
       <div>

@@ -27,8 +27,10 @@ body {
 
 h1, h2, h4{
   font-family: "Silkscreen", sans-serif;
-  font-weight: 400;
+  font-weight: 600;
   font-style: normal;
+  text-shadow: 2px 2px #fff, 2px -2px #fff, -2px 2px #fff, -2px -2px #fff;
+  
   
 }
 
@@ -173,6 +175,12 @@ button:focus-visible {
   
 }
 
+
+.options-container {
+ min-width: 500px;
+  
+
+}
 
 
 /*  SlideIndicator °°° */

@@ -28,9 +28,9 @@ const [isPlaying, setIsPlaying] = useState(false);
 
    return(
     <div>
-     <audio ref={audioRef} src={src} />;
+     <audio ref={audioRef} src={src} />
 
-    <button onClick={handleAudio}>{!isPlaying ? <FontAwesomeIcon icon={faVolumeXmark} /> : <FontAwesomeIcon icon={faVolumeHigh} /> }</button>
+    <button id='audio-button'  onClick={handleAudio}>{!isPlaying ? <FontAwesomeIcon icon={faVolumeXmark} /> : <FontAwesomeIcon icon={faVolumeHigh} /> }</button>
     </div>
     )
   

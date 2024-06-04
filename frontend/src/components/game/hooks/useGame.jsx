@@ -57,7 +57,7 @@ const useGame = (
       setKey("left");
     } else if (e.key === "ArrowRight") {
       setKey("right");
-    } else if (e.key === "Enter") {
+    } else if (e.key === "Enter" || e.key === " ") {
       setIsEnterPressed(true);
     } else if (e.key === "p") {
       console.log("p pressed");

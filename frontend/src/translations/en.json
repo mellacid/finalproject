@@ -1,12 +1,11 @@
 {
-    "play": "Play",
-    "options": "Options",
-    "connect": "Connect",
-    "howToPlay": "How to Play",
-    "areYouReady": "Are You Ready?",
-    "return": "Return to intro",
-    "language": "Choose Language",
-    "helpme": "Help me to find my owner please!"
-  }
-  
-  
+  "play": "Play",
+  "options": "Options",
+  "connect": "Connect",
+  "howToPlay": "How to Play",
+  "areYouReady": "Are You Ready?",
+  "return": "Return to intro",
+  "language": "Choose Language",
+  "helpme": "Help me to find my owner please!",
+  "backtomenu": "Back to menu"
+}

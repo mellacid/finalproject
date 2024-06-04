@@ -1,11 +1,11 @@
 {
-    "play": "Spielen",
-    "options": "Optionen",
-    "connect": "Verbinden",
-    "howToPlay": "Wie man spielt",
-    "areYouReady": "Bist du bereit?",
-    "return": "Zurück zum Intro",
-    "language": "Sprache wählen",
-    "helpme": "Hilf mir bitte, mein Frauchen zu finden!"
-  }
-  
+  "play": "Spielen",
+  "options": "Optionen",
+  "connect": "Verbinden",
+  "howToPlay": "Wie man spielt",
+  "areYouReady": "Bist du bereit?",
+  "return": "Zurück zum Intro",
+  "language": "Sprache wählen",
+  "helpme": "Hilf mir bitte, mein Frauchen zu finden!",
+  "backtomenu": "Zurück zum Menü"
+}

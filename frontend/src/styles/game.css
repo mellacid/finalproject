@@ -43,9 +43,9 @@
   left: 0;
   right: 0;
   bottom: 0;
-  height: 36px;
-  font-size: 12px;
-  padding: 4px;
+  height: 72px;
+  font-size: 24px;
+  padding: 8px;
   background: var(--menu-background);
   border-top: 1px solid var(--menu-border-color);
   color: var(--menu-font-color);

@@ -148,11 +148,11 @@ const demoForest = {
         {
           type: "textMessage",
           text: {
-            de: "Hallo, du suchst dein Frauchen?",
-            en: "Hello, are you looking for your owner?",
-            it: "Ciao, stai cercando il tuo padrone?",
-            pl: "Cześć, szukasz właściciela?",
-            tr: "Merhaba, sahibini mi arıyorsun?",
+            de: "Hallo, ich bin die Katze Rami! Du suchst dein Frauchen?",
+            en: "Hello,I am Rami the cat! Are you looking for your owner?",
+            it: "Ciao, sono il gatto Rami! Cerchi il tuo padrone?",
+            pl: "Cześć jestem kot Rami! Szukasz swojego właściciela?",
+            tr: "Merhaba, ben kedi Rami! Sahibini mi arıyorsun?",
           },
           faceHero: "npc2",
         },

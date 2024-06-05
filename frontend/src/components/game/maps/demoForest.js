@@ -333,7 +333,7 @@ const demoForest = {
     { x: withGrid(25), y: withGrid(61) },
     { x: withGrid(26), y: withGrid(61) },
     { x: withGrid(27), y: withGrid(61) },
-    { x: withGrid(28), y: withGrid(61) },
+    // { x: withGrid(28), y: withGrid(61) },
     { x: withGrid(29), y: withGrid(61) },
     { x: withGrid(30), y: withGrid(61) },
     { x: withGrid(31), y: withGrid(61) },

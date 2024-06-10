@@ -38,6 +38,8 @@ const Game = () => {
     setItemContainer,
   } = useGame(level.lowerMap, level.upperMap, level.gameObjects, level.hero);
 
+  console.log("key in Zeile 41:", key);
+
   const canvasRef = useRef(null);
 
   const [staticWalls, setStaticWalls] = useState(level.walls);
@@ -142,6 +144,8 @@ const Game = () => {
 
     console.log("hero.isPlayerControlled:", hero.isPlayerControlled);
 
+    console.log("key:", key);
+
     const imageSources = [
       lowerMap.imgSrc,
       upperMap.imgSrc,
@@ -171,6 +175,7 @@ const Game = () => {
         updateAnimation(hero);
 
         if (hero.isWalking && hero.isPlayerControlled) {
+          console.log("key:", key);
           walk(hero, key, isWall);
         } else {
           hero.animation = `idle-${hero.direction}`;

@@ -76,7 +76,6 @@ export const checkInteraction = (
       }
 
       if (object.talking) {
-        setHero((prev) => ({ ...prev, isPlayerControlled: false }));
         faceHero(object, heroDirection);
 
         if (object.id === "npc1" && truffle) {
@@ -103,7 +102,7 @@ export const checkInteraction = (
           object.currentTalkingIndex = index + 1;
         } else if (index === object.talking.length) {
           setShowTextMessage(false);
-          setHero((prev) => ({ ...prev, isPlayerControlled: true }));
+
           object.currentTalkingIndex = 0;
         }
       }

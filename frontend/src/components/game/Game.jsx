@@ -174,8 +174,8 @@ const Game = () => {
 
         updateAnimation(hero);
 
-        if (hero.isWalking && hero.isPlayerControlled) {
-          console.log("key:", key);
+        if (hero.isWalking && !showTextMessage) {
+          console.log("key in Zeile 178:", key);
           walk(hero, key, isWall);
         } else {
           hero.animation = `idle-${hero.direction}`;

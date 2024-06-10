@@ -57,6 +57,7 @@ export const checkInteraction = (
   nextPosition,
   gameObjects,
   heroDirection,
+  setHero,
   showTextMessage,
   setShowTextMessage,
   setCurrentTextMessage,
@@ -65,8 +66,6 @@ export const checkInteraction = (
   setItemContainer,
   language
 ) => {
-  console.log("language (checkInt) :", language);
-
   const x = nextPosition.x;
   const y = nextPosition.y;
 
@@ -77,6 +76,7 @@ export const checkInteraction = (
       }
 
       if (object.talking) {
+        setHero((prev) => ({ ...prev, isPlayerControlled: false }));
         faceHero(object, heroDirection);
 
         if (object.id === "npc1" && truffle) {
@@ -85,7 +85,8 @@ export const checkInteraction = (
             object,
             setCurrentTextMessage,
             setShowTextMessage,
-            language
+            language,
+            setHero
           );
           return;
         }
@@ -102,6 +103,7 @@ export const checkInteraction = (
           object.currentTalkingIndex = index + 1;
         } else if (index === object.talking.length) {
           setShowTextMessage(false);
+          setHero((prev) => ({ ...prev, isPlayerControlled: true }));
           object.currentTalkingIndex = 0;
         }
       }
@@ -113,12 +115,17 @@ export const triggerEvent = (
   object,
   setCurrentTextMessage,
   setShowTextMessage,
-  language
+  language,
+  setHero
 ) => {
   const index = object.currentEventIndex;
   const eventLength = object.event.length;
 
-  if (index >= eventLength) return; // Stop if all events are processed
+  if (index >= eventLength) {
+    setHero((prev) => ({ ...prev, isPlayerControlled: true }));
+
+    return; // Stop if all events are processed
+  }
 
   const event = object.event[index];
   const type = event.type;
@@ -145,7 +152,13 @@ export const triggerEvent = (
 
     setTimeout(() => {
       // After walking, trigger the next event recursively
-      triggerEvent(object, setCurrentTextMessage, setShowTextMessage);
+      triggerEvent(
+        object,
+        setCurrentTextMessage,
+        setShowTextMessage,
+        language,
+        setHero
+      );
     }, time);
 
     object.currentEventIndex = index + 1;

@@ -7,6 +7,7 @@ export function asGridCoord(x, y) {
 }
 
 export function walk(who, direction, isWall) {
+  if (!who.isPlayerControlled) return;
   if (direction === "up") {
     who.animation = "walk-up";
     who.direction = "up";

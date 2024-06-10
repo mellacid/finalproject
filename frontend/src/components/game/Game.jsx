@@ -23,6 +23,7 @@ const Game = () => {
     upperMap,
     gameObjects,
     hero,
+    setHero,
     key,
     isEnterPressed,
     setIsEnterPressed,
@@ -139,6 +140,8 @@ const Game = () => {
       hero.position.y / 24
     );
 
+    console.log("hero.isPlayerControlled:", hero.isPlayerControlled);
+
     const imageSources = [
       lowerMap.imgSrc,
       upperMap.imgSrc,
@@ -173,14 +176,6 @@ const Game = () => {
           hero.animation = `idle-${hero.direction}`;
         }
 
-        console.log(
-          "hero.position:",
-          "x: ",
-          Math.round(hero.position.x / 24),
-          "y: ",
-          Math.round(hero.position.y / 24)
-        );
-
         if (isEnterPressed) {
           const interactionCheck = nextPosition(
             Math.round(hero.position.x / 24) * 24,
@@ -191,6 +186,7 @@ const Game = () => {
             interactionCheck,
             gameObjects,
             hero.direction,
+            setHero,
             showTextMessage,
             setShowTextMessage,
             setCurrentTextMessage,

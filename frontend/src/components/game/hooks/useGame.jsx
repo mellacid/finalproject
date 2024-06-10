@@ -112,6 +112,7 @@ const useGame = (
     upperMap,
     gameObjects,
     hero,
+    setHero,
     key,
     currentDirection,
     isEnterPressed,
